@@ -3,13 +3,13 @@ package conf_test
 import (
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	. "github.com/v2fly/v2ray-core/v4/infra/conf"
-	"github.com/v2fly/v2ray-core/v4/proxy/vless"
-	"github.com/v2fly/v2ray-core/v4/proxy/vless/inbound"
-	"github.com/v2fly/v2ray-core/v4/proxy/vless/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vless"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vless/inbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vless/outbound"
 )
 
 func TestVLessOutbound(t *testing.T) {

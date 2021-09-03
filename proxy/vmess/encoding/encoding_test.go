@@ -4,15 +4,14 @@ import (
 	"context"
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/uuid"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/encoding"
 	"github.com/google/go-cmp/cmp"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/uuid"
-	"github.com/v2fly/v2ray-core/v4/proxy/vmess"
-	. "github.com/v2fly/v2ray-core/v4/proxy/vmess/encoding"
 )
 
 func toAccount(a *vmess.Account) protocol.Account {

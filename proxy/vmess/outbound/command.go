@@ -6,10 +6,10 @@ package outbound
 import (
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/proxy/vmess"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess"
 )
 
 func (h *Handler) handleSwitchAccount(cmd *protocol.CommandSwitchAccount) {

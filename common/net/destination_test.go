@@ -3,9 +3,8 @@ package net_test
 import (
 	"testing"
 
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/google/go-cmp/cmp"
-
-	. "github.com/v2fly/v2ray-core/v4/common/net"
 )
 
 func TestDestinationProperty(t *testing.T) {

@@ -3,10 +3,9 @@ package kcp_test
 import (
 	"testing"
 
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/kcp"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-
-	. "github.com/v2fly/v2ray-core/v4/transport/internet/kcp"
 )
 
 func TestBadSegment(t *testing.T) {

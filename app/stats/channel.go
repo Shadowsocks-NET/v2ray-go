@@ -7,7 +7,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/v2fly/v2ray-core/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 )
 
 // Channel is an implementation of stats.Channel.

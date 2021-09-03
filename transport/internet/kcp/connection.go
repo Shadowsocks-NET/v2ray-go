@@ -12,9 +12,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/signal"
-	"github.com/v2fly/v2ray-core/v4/common/signal/semaphore"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal/semaphore"
 )
 
 var (

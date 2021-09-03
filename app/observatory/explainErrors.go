@@ -1,6 +1,6 @@
 package observatory
 
-import "github.com/v2fly/v2ray-core/v4/common/errors"
+import "github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
 
 type errorCollector struct {
 	errors *errors.Error

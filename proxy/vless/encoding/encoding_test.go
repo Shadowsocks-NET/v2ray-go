@@ -3,16 +3,15 @@ package encoding_test
 import (
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/uuid"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vless"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vless/encoding"
 	"github.com/google/go-cmp/cmp"
 	"google.golang.org/protobuf/testing/protocmp"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/uuid"
-	"github.com/v2fly/v2ray-core/v4/proxy/vless"
-	. "github.com/v2fly/v2ray-core/v4/proxy/vless/encoding"
 )
 
 func toAccount(a *vless.Account) protocol.Account {

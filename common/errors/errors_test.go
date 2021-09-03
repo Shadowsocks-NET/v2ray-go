@@ -5,10 +5,9 @@ import (
 	"strings"
 	"testing"
 
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
 	"github.com/google/go-cmp/cmp"
-
-	. "github.com/v2fly/v2ray-core/v4/common/errors"
-	"github.com/v2fly/v2ray-core/v4/common/log"
 )
 
 func TestError(t *testing.T) {

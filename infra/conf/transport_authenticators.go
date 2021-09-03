@@ -3,16 +3,15 @@ package conf
 import (
 	"sort"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/http"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/noop"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/srtp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/tls"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/utp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wechat"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wireguard"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/http"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/noop"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/srtp"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/tls"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/utp"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/wechat"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/wireguard"
 )
 
 type NoOpAuthenticator struct{}

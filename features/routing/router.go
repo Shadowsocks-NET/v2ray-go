@@ -1,8 +1,8 @@
 package routing
 
 import (
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/features"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features"
 )
 
 // Router is a feature to choose an outbound tag for the given request.

@@ -9,13 +9,13 @@ import (
 	"strings"
 	"time"
 
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/app/router"
-	"github.com/v2fly/v2ray-core/v4/common/errors"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/strmatcher"
-	"github.com/v2fly/v2ray-core/v4/features/dns"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/strmatcher"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 )
 
 // Server is the interface for Name Server.

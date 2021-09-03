@@ -6,19 +6,18 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/tls/cert"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/udp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wireguard"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/quic"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 	"github.com/google/go-cmp/cmp"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/tls/cert"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	"github.com/v2fly/v2ray-core/v4/testing/servers/udp"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/wireguard"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/quic"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/tls"
 )
 
 func TestQuicConnection(t *testing.T) {

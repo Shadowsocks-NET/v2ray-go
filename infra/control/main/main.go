@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/v2fly/v2ray-core/v4/common/log"
-	_ "github.com/v2fly/v2ray-core/v4/infra/conf/geodata/memconservative"
-	_ "github.com/v2fly/v2ray-core/v4/infra/conf/geodata/standard"
-	"github.com/v2fly/v2ray-core/v4/infra/control"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
+	_ "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata/memconservative"
+	_ "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata/standard"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/control"
 )
 
 func getCommandName() string {

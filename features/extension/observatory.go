@@ -3,9 +3,8 @@ package extension
 import (
 	"context"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/features"
 )
 
 type Observatory interface {

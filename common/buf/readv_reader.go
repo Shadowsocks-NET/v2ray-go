@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/v2fly/v2ray-core/v4/common/platform"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
 )
 
 type allocStrategy struct {

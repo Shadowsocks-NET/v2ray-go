@@ -4,15 +4,15 @@ import (
 	"context"
 	"testing"
 
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/app/dispatcher"
-	"github.com/v2fly/v2ray-core/v4/app/log"
-	. "github.com/v2fly/v2ray-core/v4/app/log/command"
-	"github.com/v2fly/v2ray-core/v4/app/proxyman"
-	_ "github.com/v2fly/v2ray-core/v4/app/proxyman/inbound"
-	_ "github.com/v2fly/v2ray-core/v4/app/proxyman/outbound"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dispatcher"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/log/command"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
+	_ "github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman/inbound"
+	_ "github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 )
 
 func TestLoggerRestart(t *testing.T) {

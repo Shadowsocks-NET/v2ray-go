@@ -6,10 +6,10 @@ package dispatcher
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/bittorrent"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/http"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/tls"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/bittorrent"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/http"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/tls"
 )
 
 type SniffResult interface {

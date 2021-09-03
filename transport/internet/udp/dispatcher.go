@@ -6,15 +6,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/udp"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/common/signal"
-	"github.com/v2fly/v2ray-core/v4/common/signal/done"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
-	"github.com/v2fly/v2ray-core/v4/transport"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/udp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal/done"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 )
 
 type ResponseCallback func(ctx context.Context, packet *udp.Packet)

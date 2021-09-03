@@ -12,18 +12,17 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal/pubsub"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
+	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"golang.org/x/net/dns/dnsmessage"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/dns"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/common/signal/pubsub"
-	"github.com/v2fly/v2ray-core/v4/common/task"
-	dns_feature "github.com/v2fly/v2ray-core/v4/features/dns"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
 )
 
 // TCPNameServer implemented DNS over TCP (RFC7766).

@@ -3,11 +3,10 @@ package conf
 import (
 	"encoding/json"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/dynamic"
-
-	"github.com/v2fly/v2ray-core/v4/common/serial"
 )
 
 func (c *Config) BuildServices(service map[string]*json.RawMessage) ([]*serial.TypedMessage, error) {

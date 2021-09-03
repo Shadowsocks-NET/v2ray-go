@@ -1,10 +1,9 @@
 package conf
 
 import (
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/observatory"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon/duration"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/app/observatory"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/cfgcommon/duration"
 )
 
 type ObservatoryConfig struct {

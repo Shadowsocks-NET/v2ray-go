@@ -5,19 +5,18 @@ import (
 	"testing"
 	"time"
 
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/blackhole"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/freedom"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/socks"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
 	xproxy "golang.org/x/net/proxy"
-
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/app/dns"
-	"github.com/v2fly/v2ray-core/v4/app/proxyman"
-	"github.com/v2fly/v2ray-core/v4/app/router"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	"github.com/v2fly/v2ray-core/v4/proxy/blackhole"
-	"github.com/v2fly/v2ray-core/v4/proxy/freedom"
-	"github.com/v2fly/v2ray-core/v4/proxy/socks"
-	"github.com/v2fly/v2ray-core/v4/testing/servers/tcp"
 )
 
 func TestResolveIP(t *testing.T) {

@@ -7,8 +7,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/uuid"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/uuid"
 )
 
 // Validator stores valid VLESS users.

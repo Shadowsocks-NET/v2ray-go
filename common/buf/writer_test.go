@@ -7,11 +7,10 @@ import (
 	"io"
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/pipe"
 	"github.com/google/go-cmp/cmp"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	. "github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/transport/pipe"
 )
 
 func TestWriter(t *testing.T) {

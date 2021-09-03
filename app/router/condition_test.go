@@ -9,17 +9,16 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/http"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
+	routing_session "github.com/Shadowsocks-NET/v2ray-go/v4/features/routing/session"
 	"google.golang.org/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/app/router"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/platform/filesystem"
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/http"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
-	routing_session "github.com/v2fly/v2ray-core/v4/features/routing/session"
 )
 
 func init() {

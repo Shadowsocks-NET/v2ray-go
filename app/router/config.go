@@ -4,9 +4,9 @@
 package router
 
 import (
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/features/outbound"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 )
 
 // CIDRList is an alias of []*CIDR to provide sort.Interface.

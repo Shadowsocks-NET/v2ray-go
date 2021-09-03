@@ -3,7 +3,7 @@ package tagged
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 )
 
 type DialFunc func(ctx context.Context, dest net.Destination, tag string) (net.Conn, error)

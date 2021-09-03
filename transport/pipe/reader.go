@@ -3,7 +3,7 @@ package pipe
 import (
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 )
 
 // Reader is a buf.Reader that reads content from a pipe.

@@ -1,8 +1,8 @@
 package internet
 
 import (
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	"github.com/v2fly/v2ray-core/v4/features"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features"
 )
 
 type ConfigCreator func() interface{}

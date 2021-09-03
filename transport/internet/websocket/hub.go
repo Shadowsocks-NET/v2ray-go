@@ -14,14 +14,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	http_proto "github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/http"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
+	v2tls "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 	"github.com/gorilla/websocket"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	http_proto "github.com/v2fly/v2ray-core/v4/common/protocol/http"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
-	v2tls "github.com/v2fly/v2ray-core/v4/transport/internet/tls"
 )
 
 type requestHandler struct {

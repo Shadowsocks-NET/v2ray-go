@@ -3,7 +3,7 @@ package geodata
 import (
 	"strings"
 
-	"github.com/v2fly/v2ray-core/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
 )
 
 type loader struct {

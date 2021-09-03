@@ -1,6 +1,6 @@
 package main
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
 
 import (
 	"flag"
@@ -15,11 +15,11 @@ import (
 	"strings"
 	"syscall"
 
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/common/cmdarg"
-	logger "github.com/v2fly/v2ray-core/v4/common/log"
-	"github.com/v2fly/v2ray-core/v4/common/platform"
-	_ "github.com/v2fly/v2ray-core/v4/main/distro/all"
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/cmdarg"
+	logger "github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
+	_ "github.com/Shadowsocks-NET/v2ray-go/v4/main/distro/all"
 )
 
 var (

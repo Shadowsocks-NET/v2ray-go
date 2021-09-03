@@ -6,13 +6,12 @@ package command
 import (
 	"context"
 
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/inbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy"
 	grpc "google.golang.org/grpc"
-
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/features/inbound"
-	"github.com/v2fly/v2ray-core/v4/features/outbound"
-	"github.com/v2fly/v2ray-core/v4/proxy"
 )
 
 // InboundOperation is the interface for operations that applies to inbound handlers.

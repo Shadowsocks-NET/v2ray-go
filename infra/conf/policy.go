@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"github.com/v2fly/v2ray-core/v4/app/policy"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/policy"
 )
 
 type Policy struct {

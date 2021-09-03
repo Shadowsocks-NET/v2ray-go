@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/v2fly/v2ray-core/v4/common/log"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 )
 
 type hasInnerError interface {
@@ -38,8 +38,8 @@ func (err *Error) pkgPath() string {
 		return ""
 	}
 	path := reflect.TypeOf(err.pathObj).PkgPath()
-	path = strings.TrimPrefix(path, "github.com/v2fly/v2ray-core/v4/")
-	path = strings.TrimPrefix(path, "github.com/v2fly/v2ray-core/v4")
+	path = strings.TrimPrefix(path, "github.com/Shadowsocks-NET/v2ray-go/v4/")
+	path = strings.TrimPrefix(path, "github.com/Shadowsocks-NET/v2ray-go/v4")
 	return path
 }
 

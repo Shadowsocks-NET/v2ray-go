@@ -8,18 +8,17 @@ import (
 	"io"
 	"sync"
 
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	dns_proto "github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"golang.org/x/net/dns/dnsmessage"
-
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	dns_proto "github.com/v2fly/v2ray-core/v4/common/protocol/dns"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/common/task"
-	"github.com/v2fly/v2ray-core/v4/features/dns"
-	"github.com/v2fly/v2ray-core/v4/transport"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
 )
 
 func init() {

@@ -4,15 +4,14 @@ import (
 	"context"
 	"testing"
 
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
+	routing_session "github.com/Shadowsocks-NET/v2ray-go/v4/features/routing/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/mocks"
 	"github.com/golang/mock/gomock"
-
-	. "github.com/v2fly/v2ray-core/v4/app/router"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/features/outbound"
-	routing_session "github.com/v2fly/v2ray-core/v4/features/routing/session"
-	"github.com/v2fly/v2ray-core/v4/testing/mocks"
 )
 
 type mockOutboundManager struct {

@@ -5,15 +5,15 @@ import (
 	"testing"
 	_ "unsafe"
 
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/app/policy"
-	. "github.com/v2fly/v2ray-core/v4/app/proxyman/outbound"
-	"github.com/v2fly/v2ray-core/v4/app/stats"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	"github.com/v2fly/v2ray-core/v4/features/outbound"
-	"github.com/v2fly/v2ray-core/v4/proxy/freedom"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/policy"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/stats"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/freedom"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 )
 
 func TestInterfaces(t *testing.T) {
@@ -21,7 +21,7 @@ func TestInterfaces(t *testing.T) {
 	_ = (outbound.Manager)(new(Manager))
 }
 
-//go:linkname toContext github.com/v2fly/v2ray-core/v4.toContext
+//go:linkname toContext github.com/Shadowsocks-NET/v2ray-go/v4.toContext
 func toContext(ctx context.Context, v *core.Instance) context.Context
 
 func TestOutboundWithoutStatCounter(t *testing.T) {

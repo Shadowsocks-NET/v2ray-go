@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/v2fly/v2ray-core/v4/app/router"
-	"github.com/v2fly/v2ray-core/v4/common/platform"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/cfgcommon"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/geodata"
-	rule2 "github.com/v2fly/v2ray-core/v4/infra/conf/rule"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata"
+	rule2 "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/rule"
 )
 
 type RouterRulesConfig struct {

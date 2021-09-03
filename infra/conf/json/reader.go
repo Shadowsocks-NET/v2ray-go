@@ -3,7 +3,7 @@ package json
 import (
 	"io"
 
-	"github.com/v2fly/v2ray-core/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 )
 
 // State is the internal state of parser.

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	. "github.com/v2fly/v2ray-core/v4/common"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common"
 )
 
 type TConfig struct {

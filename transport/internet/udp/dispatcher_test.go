@@ -6,14 +6,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/udp"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
-	"github.com/v2fly/v2ray-core/v4/transport"
-	. "github.com/v2fly/v2ray-core/v4/transport/internet/udp"
-	"github.com/v2fly/v2ray-core/v4/transport/pipe"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/udp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/udp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/pipe"
 )
 
 type TestDispatcher struct {

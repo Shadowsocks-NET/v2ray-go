@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	v2tls "github.com/v2fly/v2ray-core/v4/transport/internet/tls"
+	v2tls "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 )
 
 type CertificateChainHashCommand struct{}

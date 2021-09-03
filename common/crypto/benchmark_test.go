@@ -4,7 +4,7 @@ import (
 	"crypto/cipher"
 	"testing"
 
-	. "github.com/v2fly/v2ray-core/v4/common/crypto"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/crypto"
 )
 
 const benchSize = 1024 * 1024

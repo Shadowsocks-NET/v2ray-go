@@ -3,20 +3,19 @@
 
 package command
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
 
 import (
 	"context"
 	"runtime"
 	"time"
 
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/stats"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/strmatcher"
+	feature_stats "github.com/Shadowsocks-NET/v2ray-go/v4/features/stats"
 	grpc "google.golang.org/grpc"
-
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/app/stats"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/strmatcher"
-	feature_stats "github.com/v2fly/v2ray-core/v4/features/stats"
 )
 
 // statsServer is an implementation of StatsService.

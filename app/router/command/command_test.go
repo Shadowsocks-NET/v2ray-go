@@ -5,19 +5,18 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/router/command"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/stats"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
-
-	"github.com/v2fly/v2ray-core/v4/app/router"
-	. "github.com/v2fly/v2ray-core/v4/app/router/command"
-	"github.com/v2fly/v2ray-core/v4/app/stats"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
-	"github.com/v2fly/v2ray-core/v4/testing/mocks"
 )
 
 func TestServiceSubscribeRoutingStats(t *testing.T) {

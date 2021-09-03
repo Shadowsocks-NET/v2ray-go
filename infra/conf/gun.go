@@ -1,9 +1,8 @@
 package conf
 
 import (
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/grpc"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/transport/internet/grpc"
 )
 
 type GunConfig struct {

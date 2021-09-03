@@ -6,8 +6,8 @@ package tcp
 import (
 	"syscall"
 
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 )
 
 const SO_ORIGINAL_DST = 80 // nolint: golint,stylecheck

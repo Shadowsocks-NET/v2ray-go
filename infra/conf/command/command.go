@@ -1,15 +1,14 @@
 package command
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
 
 import (
 	"os"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/control"
 	"google.golang.org/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/serial"
-	"github.com/v2fly/v2ray-core/v4/infra/control"
 )
 
 type ConfigCommand struct{}

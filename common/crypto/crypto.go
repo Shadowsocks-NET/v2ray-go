@@ -1,4 +1,4 @@
 // Package crypto provides common crypto libraries for V2Ray.
 package crypto
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen

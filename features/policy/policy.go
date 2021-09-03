@@ -5,8 +5,8 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common/platform"
-	"github.com/v2fly/v2ray-core/v4/features"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features"
 )
 
 // Timeout contains limits for connection timeout.

@@ -3,8 +3,8 @@ package cfgcommon
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/geodata"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata"
 )
 
 type configureLoadingContext int

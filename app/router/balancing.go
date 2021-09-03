@@ -6,9 +6,9 @@ package router
 import (
 	"context"
 
-	"github.com/v2fly/v2ray-core/v4/common/dice"
-	"github.com/v2fly/v2ray-core/v4/features/extension"
-	"github.com/v2fly/v2ray-core/v4/features/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/dice"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/extension"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
 )
 
 type BalancingStrategy interface {

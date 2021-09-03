@@ -3,9 +3,9 @@ package buf
 import (
 	"io"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/errors"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 )
 
 // ReadAllToBytes reads all content from the reader into a byte array, until EOF.

@@ -4,10 +4,9 @@ import (
 	"crypto/rand"
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/encoding"
 	"github.com/google/go-cmp/cmp"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	. "github.com/v2fly/v2ray-core/v4/proxy/vmess/encoding"
 )
 
 func TestFnvAuth(t *testing.T) {

@@ -8,10 +8,9 @@ import (
 	"os"
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/google/go-cmp/cmp"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	. "github.com/v2fly/v2ray-core/v4/common/buf"
 )
 
 func TestMultiBufferRead(t *testing.T) {

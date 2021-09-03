@@ -4,12 +4,11 @@ import (
 	"context"
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	clog "github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/mocks"
 	"github.com/golang/mock/gomock"
-
-	"github.com/v2fly/v2ray-core/v4/app/log"
-	"github.com/v2fly/v2ray-core/v4/common"
-	clog "github.com/v2fly/v2ray-core/v4/common/log"
-	"github.com/v2fly/v2ray-core/v4/testing/mocks"
 )
 
 func TestCustomLogHandler(t *testing.T) {

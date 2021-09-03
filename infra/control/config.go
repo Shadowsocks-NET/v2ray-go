@@ -7,11 +7,10 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/serial"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/infra/conf"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/serial"
 )
 
 // ConfigCommand is the json to pb convert struct

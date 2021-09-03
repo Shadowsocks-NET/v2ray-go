@@ -6,12 +6,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/transport/pipe"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/sync/errgroup"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	. "github.com/v2fly/v2ray-core/v4/transport/pipe"
 )
 
 func TestPipeReadWrite(t *testing.T) {

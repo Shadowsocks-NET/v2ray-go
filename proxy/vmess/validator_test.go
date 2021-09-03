@@ -4,11 +4,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	"github.com/v2fly/v2ray-core/v4/common/uuid"
-	. "github.com/v2fly/v2ray-core/v4/proxy/vmess"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/uuid"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess"
 )
 
 func toAccount(a *Account) protocol.Account {

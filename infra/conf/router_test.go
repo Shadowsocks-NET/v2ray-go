@@ -5,11 +5,10 @@ import (
 	"testing"
 	_ "unsafe"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/app/router"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	. "github.com/v2fly/v2ray-core/v4/infra/conf"
 )
 
 func TestRouterConfig(t *testing.T) {

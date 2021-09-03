@@ -3,9 +3,9 @@ package conf_test
 import (
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	. "github.com/v2fly/v2ray-core/v4/infra/conf"
-	"github.com/v2fly/v2ray-core/v4/proxy/blackhole"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/blackhole"
 )
 
 func TestHTTPResponseJSON(t *testing.T) {

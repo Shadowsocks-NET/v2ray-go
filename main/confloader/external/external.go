@@ -1,6 +1,6 @@
 package external
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
 
 import (
 	"bytes"
@@ -12,9 +12,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/platform/ctlcmd"
-	"github.com/v2fly/v2ray-core/v4/main/confloader"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/ctlcmd"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/main/confloader"
 )
 
 func ConfigLoader(arg string) (out io.Reader, err error) {

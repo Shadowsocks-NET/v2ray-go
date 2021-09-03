@@ -3,7 +3,7 @@ package log
 import (
 	"sync"
 
-	"github.com/v2fly/v2ray-core/v4/common/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 )
 
 // Message is the interface for all log messages.

@@ -12,17 +12,16 @@ import (
 	"sync"
 	"time"
 
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	v2net "github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal/done"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/extension"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tagged"
 	"github.com/golang/protobuf/proto"
-
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/common"
-	v2net "github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/common/signal/done"
-	"github.com/v2fly/v2ray-core/v4/common/task"
-	"github.com/v2fly/v2ray-core/v4/features/extension"
-	"github.com/v2fly/v2ray-core/v4/features/outbound"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/tagged"
 )
 
 type Observer struct {

@@ -9,11 +9,10 @@ import (
 	"net"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/gorilla/websocket"
-
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/errors"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
 )
 
 var _ buf.Writer = (*connection)(nil)

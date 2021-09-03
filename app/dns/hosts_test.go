@@ -3,12 +3,11 @@ package dns_test
 import (
 	"testing"
 
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/google/go-cmp/cmp"
-
-	. "github.com/v2fly/v2ray-core/v4/app/dns"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/features/dns"
 )
 
 func TestStaticHosts(t *testing.T) {

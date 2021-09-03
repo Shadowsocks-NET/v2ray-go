@@ -7,15 +7,14 @@ import (
 	"context"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/mux"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/pipe"
 	"google.golang.org/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/common/mux"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/common/task"
-	"github.com/v2fly/v2ray-core/v4/features/routing"
-	"github.com/v2fly/v2ray-core/v4/transport"
-	"github.com/v2fly/v2ray-core/v4/transport/pipe"
 )
 
 // Bridge is a component in reverse proxy, that relays connections from Portal to local address.

@@ -3,12 +3,12 @@ package jsonem
 import (
 	"io"
 
-	core "github.com/v2fly/v2ray-core/v4"
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/cmdarg"
-	"github.com/v2fly/v2ray-core/v4/infra/conf"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/serial"
-	"github.com/v2fly/v2ray-core/v4/main/confloader"
+	core "github.com/Shadowsocks-NET/v2ray-go/v4"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/cmdarg"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/serial"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/main/confloader"
 )
 
 func init() {

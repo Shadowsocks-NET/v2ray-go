@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	. "github.com/v2fly/v2ray-core/v4/common/strmatcher"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/strmatcher"
 )
 
 // See https://github.com/v2fly/v2ray-core/issues/92#issuecomment-673238489

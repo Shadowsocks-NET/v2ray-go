@@ -8,7 +8,7 @@ import (
 	"encoding/binary"
 	"hash/fnv"
 
-	"github.com/v2fly/v2ray-core/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 )
 
 // SimpleAuthenticator is a legacy AEAD used for KCP encryption.

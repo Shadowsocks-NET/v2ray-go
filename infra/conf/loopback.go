@@ -1,9 +1,8 @@
 package conf
 
 import (
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/loopback"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/proxy/loopback"
 )
 
 type LoopbackConfig struct {

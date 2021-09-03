@@ -12,10 +12,10 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 )
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
 
 type Certificate struct {
 	// Cerificate in ASN.1 DER format

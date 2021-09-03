@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/tls/cert"
-	"github.com/v2fly/v2ray-core/v4/common/task"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/tls/cert"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
 )
 
 type stringList []string

@@ -1,4 +1,4 @@
-module github.com/v2fly/v2ray-core/v4
+module github.com/Shadowsocks-NET/v2ray-go/v4
 
 go 1.17
 

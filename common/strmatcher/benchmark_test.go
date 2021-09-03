@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	. "github.com/v2fly/v2ray-core/v4/common/strmatcher"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/strmatcher"
 )
 
 func BenchmarkACAutomaton(b *testing.B) {

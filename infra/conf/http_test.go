@@ -3,8 +3,8 @@ package conf_test
 import (
 	"testing"
 
-	. "github.com/v2fly/v2ray-core/v4/infra/conf"
-	"github.com/v2fly/v2ray-core/v4/proxy/http"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/http"
 )
 
 func TestHTTPServerConfig(t *testing.T) {

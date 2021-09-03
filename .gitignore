@@ -1,7 +1,3 @@
-# Generated files
-*.pb.go
-*.generated.go
-
 # Binaries for programs and plugins
 *.exe
 *.exe~

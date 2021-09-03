@@ -10,19 +10,18 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal/pubsub"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
+	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 	"github.com/lucas-clemente/quic-go"
 	"golang.org/x/net/dns/dnsmessage"
 	"golang.org/x/net/http2"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/protocol/dns"
-	"github.com/v2fly/v2ray-core/v4/common/session"
-	"github.com/v2fly/v2ray-core/v4/common/signal/pubsub"
-	"github.com/v2fly/v2ray-core/v4/common/task"
-	dns_feature "github.com/v2fly/v2ray-core/v4/features/dns"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/tls"
 )
 
 // NextProtoDQ - During connection establishment, DNS/QUIC support is indicated

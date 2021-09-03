@@ -4,7 +4,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/v2fly/v2ray-core/v4/common/dice"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/dice"
 )
 
 type BehaviorSeedLimitedDrainer struct {

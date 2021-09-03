@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	v2tls "github.com/v2fly/v2ray-core/v4/transport/internet/tls"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	v2tls "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 )
 
 type TLSPingCommand struct{}

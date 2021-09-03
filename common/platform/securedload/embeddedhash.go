@@ -7,11 +7,10 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
 	"github.com/v2fly/VSign/insmgr"
 	"github.com/v2fly/VSign/signerVerify"
-
-	"github.com/v2fly/v2ray-core/v4/common/platform"
-	"github.com/v2fly/v2ray-core/v4/common/platform/filesystem"
 )
 
 type EmbeddedHashProtectedLoader struct {

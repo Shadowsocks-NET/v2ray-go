@@ -7,12 +7,11 @@ import (
 	"io"
 	"strings"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/cmdarg"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/main/confloader"
 	"google.golang.org/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/buf"
-	"github.com/v2fly/v2ray-core/v4/common/cmdarg"
-	"github.com/v2fly/v2ray-core/v4/main/confloader"
 )
 
 // ConfigFormat is a configurable format of V2Ray config file.

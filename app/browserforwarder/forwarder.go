@@ -11,16 +11,15 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/securedload"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/extension"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/v2fly/BrowserBridge/handler"
-
-	"github.com/v2fly/v2ray-core/v4/common"
-	"github.com/v2fly/v2ray-core/v4/common/net"
-	"github.com/v2fly/v2ray-core/v4/common/platform/securedload"
-	"github.com/v2fly/v2ray-core/v4/features/extension"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
 )
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
 
 type Forwarder struct {
 	ctx context.Context

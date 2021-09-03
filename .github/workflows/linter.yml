@@ -25,10 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pacman -Syu --needed --noconfirm go protobuf wget zip
-
-      - name: Run go generate
-        run: go generate
+          pacman -Syu --needed --noconfirm go protobuf
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2.5.2

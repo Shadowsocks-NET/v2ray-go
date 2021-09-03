@@ -3,15 +3,14 @@ package conf
 import (
 	"strings"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/commander"
+	loggerservice "github.com/Shadowsocks-NET/v2ray-go/v4/app/log/command"
+	observatoryservice "github.com/Shadowsocks-NET/v2ray-go/v4/app/observatory/command"
+	handlerservice "github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman/command"
+	statsservice "github.com/Shadowsocks-NET/v2ray-go/v4/app/stats/command"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/dynamic"
-
-	"github.com/v2fly/v2ray-core/v4/app/commander"
-	loggerservice "github.com/v2fly/v2ray-core/v4/app/log/command"
-	observatoryservice "github.com/v2fly/v2ray-core/v4/app/observatory/command"
-	handlerservice "github.com/v2fly/v2ray-core/v4/app/proxyman/command"
-	statsservice "github.com/v2fly/v2ray-core/v4/app/stats/command"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
 )
 
 type APIConfig struct {

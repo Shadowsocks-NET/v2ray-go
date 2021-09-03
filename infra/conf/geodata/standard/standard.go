@@ -3,14 +3,13 @@ package standard
 import (
 	"strings"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata"
 	"google.golang.org/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/app/router"
-	"github.com/v2fly/v2ray-core/v4/common/platform/filesystem"
-	"github.com/v2fly/v2ray-core/v4/infra/conf/geodata"
 )
 
-//go:generate go run github.com/v2fly/v2ray-core/v4/common/errors/errorgen
+//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
 
 func loadIP(filename, country string) ([]*router.CIDR, error) {
 	geoipBytes, err := filesystem.ReadAsset(filename)

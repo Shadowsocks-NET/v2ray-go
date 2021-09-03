@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/v2fly/v2ray-core/v4/app/dns/fakedns"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dns/fakedns"
 )
 
 type FakeDNSPoolElementConfig struct {

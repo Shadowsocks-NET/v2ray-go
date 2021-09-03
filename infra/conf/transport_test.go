@@ -4,20 +4,19 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/http"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/noop"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/tls"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/kcp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/quic"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tcp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/websocket"
 	"github.com/golang/protobuf/proto"
-
-	"github.com/v2fly/v2ray-core/v4/common/protocol"
-	"github.com/v2fly/v2ray-core/v4/common/serial"
-	. "github.com/v2fly/v2ray-core/v4/infra/conf"
-	"github.com/v2fly/v2ray-core/v4/transport"
-	"github.com/v2fly/v2ray-core/v4/transport/internet"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/http"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/noop"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/tls"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/kcp"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/quic"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/tcp"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/websocket"
 )
 
 func TestSocketConfig(t *testing.T) {

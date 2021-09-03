@@ -3,13 +3,13 @@ package internet_test
 import (
 	"testing"
 
-	"github.com/v2fly/v2ray-core/v4/common"
-	. "github.com/v2fly/v2ray-core/v4/transport/internet"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/noop"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/srtp"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/utp"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/wechat"
-	"github.com/v2fly/v2ray-core/v4/transport/internet/headers/wireguard"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/noop"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/srtp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/utp"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wechat"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wireguard"
 )
 
 func TestAllHeadersLoadable(t *testing.T) {
