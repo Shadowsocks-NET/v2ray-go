@@ -18,14 +18,17 @@ jobs:
   lint:
     if: github.repository == 'Shadowsocks-NET/v2ray-go'
     runs-on: ubuntu-latest
+    container:
+      image: archlinux/archlinux:base-devel
     steps:
-      - name: Set up Go 1.x
-        uses: actions/setup-go@v2
-        with:
-          go-version: ^1.17
+      - uses: actions/checkout@v2
 
-      - name: Checkout codebase
-        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          pacman -Syu --needed --noconfirm go protobuf wget zip
+
+      - name: Run go generate
+        run: go generate
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2.5.2

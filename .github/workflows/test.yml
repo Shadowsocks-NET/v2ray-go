@@ -21,21 +21,20 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux/archlinux:base-devel
     steps:
-      - name: Set up Go 1.x
-        uses: actions/setup-go@v2
-        with:
-          go-version: ^1.17
+      - uses: actions/checkout@v2
 
-      - name: Checkout codebase
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Install dependencies
+        run: |
+          pacman -Syu --needed --noconfirm go protobuf wget zip
+
+      - name: Run go generate
+        run: go generate
 
       - name: Check Go modules
         run: |
