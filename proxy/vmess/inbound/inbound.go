@@ -18,7 +18,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal"
@@ -34,16 +33,14 @@ import (
 
 type userByEmail struct {
 	sync.Mutex
-	cache           map[string]*protocol.MemoryUser
-	defaultLevel    uint32
-	defaultAlterIDs uint16
+	cache        map[string]*protocol.MemoryUser
+	defaultLevel uint32
 }
 
 func newUserByEmail(config *DefaultConfig) *userByEmail {
 	return &userByEmail{
-		cache:           make(map[string]*protocol.MemoryUser),
-		defaultLevel:    config.Level,
-		defaultAlterIDs: uint16(config.AlterId),
+		cache:        make(map[string]*protocol.MemoryUser),
+		defaultLevel: config.Level,
 	}
 }
 
@@ -74,8 +71,7 @@ func (v *userByEmail) Get(email string) (*protocol.MemoryUser, bool) {
 	if !found {
 		id := uuid.New()
 		rawAccount := &vmess.Account{
-			Id:      id.String(),
-			AlterId: uint32(v.defaultAlterIDs),
+			Id: id.String(),
 		}
 		account, err := rawAccount.AsAccount()
 		common.Must(err)
@@ -228,7 +224,6 @@ func (h *Handler) Process(ctx context.Context, network net.Network, connection i
 
 	reader := &buf.BufferedReader{Reader: buf.NewReader(connection)}
 	svrSession := encoding.NewServerSession(h.clients, h.sessionHistory)
-	svrSession.SetAEADForced(aeadForced)
 	request, err := svrSession.DecodeRequestHeader(reader)
 	if err != nil {
 		if errors.Cause(err) != io.EOF {
@@ -355,29 +350,8 @@ func (h *Handler) generateCommand(ctx context.Context, request *protocol.Request
 	return nil
 }
 
-var (
-	aeadForced     = false
-	aeadForced2022 = false
-)
-
 func init() {
 	common.Must(common.RegisterConfig((*Config)(nil), func(ctx context.Context, config interface{}) (interface{}, error) {
 		return New(ctx, config.(*Config))
 	}))
-
-	defaultFlagValue := "NOT_DEFINED_AT_ALL"
-
-	if time.Now().Year() >= 2022 {
-		defaultFlagValue = "true_by_default_2022"
-	}
-
-	isAeadForced := platform.NewEnvFlag("v2ray.vmess.aead.forced").GetValue(func() string { return defaultFlagValue })
-	if isAeadForced == "true" {
-		aeadForced = true
-	}
-
-	if isAeadForced == "true_by_default_2022" {
-		aeadForced = true
-		aeadForced2022 = true
-	}
 }

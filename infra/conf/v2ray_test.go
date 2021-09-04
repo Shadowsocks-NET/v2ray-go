@@ -71,7 +71,6 @@ func TestV2RayConfig(t *testing.T) {
 					"settings": {
 						"clients": [
 							{
-								"alterId": 100,
 								"security": "aes-128-gcm",
 								"id": "0cdf8a45-303d-4fed-9780-29aa7f54175e"
 							}
@@ -101,7 +100,6 @@ func TestV2RayConfig(t *testing.T) {
 					"settings": {
 						"clients": [
 							{
-								"alterId": 100,
 								"security": "aes-128-gcm",
 								"id": "0cdf8a45-303d-4fed-9780-29aa7f54175e"
 							}
@@ -268,8 +266,7 @@ func TestV2RayConfig(t *testing.T) {
 								{
 									Level: 0,
 									Account: serial.ToTypedMessage(&vmess.Account{
-										Id:      "0cdf8a45-303d-4fed-9780-29aa7f54175e",
-										AlterId: 100,
+										Id: "0cdf8a45-303d-4fed-9780-29aa7f54175e",
 										SecuritySettings: &protocol.SecurityConfig{
 											Type: protocol.SecurityType_AES128_GCM,
 										},
@@ -324,8 +321,7 @@ func TestV2RayConfig(t *testing.T) {
 								{
 									Level: 0,
 									Account: serial.ToTypedMessage(&vmess.Account{
-										Id:      "0cdf8a45-303d-4fed-9780-29aa7f54175e",
-										AlterId: 100,
+										Id: "0cdf8a45-303d-4fed-9780-29aa7f54175e",
 										SecuritySettings: &protocol.SecurityConfig{
 											Type: protocol.SecurityType_AES128_GCM,
 										},

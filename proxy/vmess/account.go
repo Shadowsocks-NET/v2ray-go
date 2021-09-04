@@ -58,7 +58,6 @@ func (a *Account) AsAccount() (protocol.Account, error) {
 	}
 	return &MemoryAccount{
 		ID:                            protoID,
-		AlterIDs:                      protocol.NewAlterIDs(protoID, uint16(a.AlterId)),
 		Security:                      a.SecuritySettings.GetSecurityType(),
 		AuthenticatedLengthExperiment: AuthenticatedLength,
 		NoTerminationSignal:           NoTerminationSignal,

@@ -14,8 +14,7 @@ import (
 
 func (h *Handler) handleSwitchAccount(cmd *protocol.CommandSwitchAccount) {
 	rawAccount := &vmess.Account{
-		Id:      cmd.ID.String(),
-		AlterId: uint32(cmd.AlterIds),
+		Id: cmd.ID.String(),
 		SecuritySettings: &protocol.SecurityConfig{
 			Type: protocol.SecurityType_LEGACY,
 		},
@@ -30,7 +29,7 @@ func (h *Handler) handleSwitchAccount(cmd *protocol.CommandSwitchAccount) {
 	}
 	dest := net.TCPDestination(cmd.Host, cmd.Port)
 	until := time.Now().Add(time.Duration(cmd.ValidMin) * time.Minute)
-	h.serverList.AddServer(protocol.NewServerSpec(dest, protocol.BeforeTime(until), user))
+	h.server = protocol.NewServerSpec(dest, protocol.BeforeTime(until), user)
 }
 
 func (h *Handler) handleCommand(dest net.Destination, cmd protocol.ResponseCommand) {

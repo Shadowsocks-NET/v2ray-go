@@ -31,26 +31,20 @@ import (
 
 // Handler is an outbound connection handler for VMess protocol.
 type Handler struct {
-	serverList    *protocol.ServerList
-	serverPicker  protocol.ServerPicker
+	server        *protocol.ServerSpec
 	policyManager policy.Manager
 }
 
 // New creates a new VMess outbound handler.
 func New(ctx context.Context, config *Config) (*Handler, error) {
-	serverList := protocol.NewServerList()
-	for _, rec := range config.Receiver {
-		s, err := protocol.NewServerSpecFromPB(rec)
-		if err != nil {
-			return nil, newError("failed to parse server spec").Base(err)
-		}
-		serverList.AddServer(s)
+	server, err := protocol.NewServerSpecFromPB(config.Server)
+	if err != nil {
+		return nil, newError("failed to parse server spec").Base(err)
 	}
 
 	v := core.MustFromContext(ctx)
 	handler := &Handler{
-		serverList:    serverList,
-		serverPicker:  protocol.NewRoundRobinServerPicker(serverList),
+		server:        server,
 		policyManager: v.GetFeature(policy.ManagerType()).(policy.Manager),
 	}
 
@@ -59,12 +53,10 @@ func New(ctx context.Context, config *Config) (*Handler, error) {
 
 // Process implements proxy.Outbound.Process().
 func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer internet.Dialer) error {
-	var rec *protocol.ServerSpec
 	var conn internet.Connection
 
 	err := retry.ExponentialBackoff(5, 200).On(func() error {
-		rec = h.serverPicker.PickServer()
-		rawConn, err := dialer.Dial(ctx, rec.Destination())
+		rawConn, err := dialer.Dial(ctx, h.server.Destination())
 		if err != nil {
 			return err
 		}
@@ -83,7 +75,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	}
 
 	target := outbound.Target
-	newError("tunneling request to ", target, " via ", rec.Destination()).WriteToLog(session.ExportIDToError(ctx))
+	newError("tunneling request to ", target, " via ", h.server.Destination()).WriteToLog(session.ExportIDToError(ctx))
 
 	command := protocol.RequestCommandTCP
 	if target.Network == net.Network_UDP {
@@ -93,7 +85,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 		command = protocol.RequestCommandMux
 	}
 
-	user := rec.PickUser()
+	user := h.server.PickUser()
 	request := &protocol.RequestHeader{
 		Version: encoding.Version,
 		User:    user,
@@ -127,17 +119,12 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	input := link.Reader
 	output := link.Writer
 
-	isAEAD := false
-	if !aeadDisabled && len(account.AlterIDs) == 0 {
-		isAEAD = true
-	}
-
 	hashkdf := hmac.New(sha256.New, []byte("VMessBF"))
 	hashkdf.Write(account.ID.Bytes())
 
 	behaviorSeed := crc64.Checksum(hashkdf.Sum(nil), crc64.MakeTable(crc64.ISO))
 
-	session := encoding.NewClientSession(ctx, isAEAD, protocol.DefaultIDHash, int64(behaviorSeed))
+	session := encoding.NewClientSession(ctx, true, protocol.DefaultIDHash, int64(behaviorSeed))
 	sessionPolicy := h.policyManager.ForLevel(request.User.Level)
 
 	ctx, cancel := context.WithCancel(ctx)
@@ -181,7 +168,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 		if err != nil {
 			return newError("failed to read header").Base(err)
 		}
-		h.handleCommand(rec.Destination(), header.Command)
+		h.handleCommand(h.server.Destination(), header.Command)
 
 		bodyReader := session.DecodeResponseBody(request, reader)
 
@@ -198,7 +185,6 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 
 var (
 	enablePadding = false
-	aeadDisabled  = false
 )
 
 func shouldEnablePadding(s protocol.SecurityType) bool {
@@ -215,10 +201,5 @@ func init() {
 	paddingValue := platform.NewEnvFlag("v2ray.vmess.padding").GetValue(func() string { return defaultFlagValue })
 	if paddingValue != defaultFlagValue {
 		enablePadding = true
-	}
-
-	isAeadDisabled := platform.NewEnvFlag("v2ray.vmess.aead.disabled").GetValue(func() string { return defaultFlagValue })
-	if isAeadDisabled == "true" {
-		aeadDisabled = true
 	}
 }

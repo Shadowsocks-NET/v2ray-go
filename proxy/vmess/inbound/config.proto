@@ -13,7 +13,6 @@ message DetourConfig {
 }
 
 message DefaultConfig {
-  uint32 alter_id = 1;
   uint32 level = 2;
 }
 

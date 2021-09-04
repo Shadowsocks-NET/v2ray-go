@@ -27,8 +27,7 @@ func TestRequestSerialization(t *testing.T) {
 	}
 	id := uuid.New()
 	account := &vmess.Account{
-		Id:      id.String(),
-		AlterId: 0,
+		Id: id.String(),
 	}
 	user.Account = toAccount(account)
 
@@ -77,8 +76,7 @@ func TestInvalidRequest(t *testing.T) {
 	}
 	id := uuid.New()
 	account := &vmess.Account{
-		Id:      id.String(),
-		AlterId: 0,
+		Id: id.String(),
 	}
 	user.Account = toAccount(account)
 
@@ -119,8 +117,7 @@ func TestMuxRequest(t *testing.T) {
 	}
 	id := uuid.New()
 	account := &vmess.Account{
-		Id:      id.String(),
-		AlterId: 0,
+		Id: id.String(),
 	}
 	user.Account = toAccount(account)
 

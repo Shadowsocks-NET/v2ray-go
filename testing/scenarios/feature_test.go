@@ -174,16 +174,14 @@ func TestProxy(t *testing.T) {
 		Outbound: []*core.OutboundHandlerConfig{
 			{
 				ProxySettings: serial.ToTypedMessage(&outbound.Config{
-					Receiver: []*protocol.ServerEndpoint{
-						{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(serverPort),
-							User: []*protocol.User{
-								{
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id: serverUserID.String(),
-									}),
-								},
+					Server: &protocol.ServerEndpoint{
+						Address: net.NewIPOrDomain(net.LocalHostIP),
+						Port:    uint32(serverPort),
+						User: []*protocol.User{
+							{
+								Account: serial.ToTypedMessage(&vmess.Account{
+									Id: serverUserID.String(),
+								}),
 							},
 						},
 					},
@@ -197,16 +195,14 @@ func TestProxy(t *testing.T) {
 			{
 				Tag: "proxy",
 				ProxySettings: serial.ToTypedMessage(&outbound.Config{
-					Receiver: []*protocol.ServerEndpoint{
-						{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(proxyPort),
-							User: []*protocol.User{
-								{
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id: proxyUserID.String(),
-									}),
-								},
+					Server: &protocol.ServerEndpoint{
+						Address: net.NewIPOrDomain(net.LocalHostIP),
+						Port:    uint32(proxyPort),
+						User: []*protocol.User{
+							{
+								Account: serial.ToTypedMessage(&vmess.Account{
+									Id: proxyUserID.String(),
+								}),
 							},
 						},
 					},
@@ -314,16 +310,14 @@ func TestProxyOverKCP(t *testing.T) {
 		Outbound: []*core.OutboundHandlerConfig{
 			{
 				ProxySettings: serial.ToTypedMessage(&outbound.Config{
-					Receiver: []*protocol.ServerEndpoint{
-						{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(serverPort),
-							User: []*protocol.User{
-								{
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id: serverUserID.String(),
-									}),
-								},
+					Server: &protocol.ServerEndpoint{
+						Address: net.NewIPOrDomain(net.LocalHostIP),
+						Port:    uint32(serverPort),
+						User: []*protocol.User{
+							{
+								Account: serial.ToTypedMessage(&vmess.Account{
+									Id: serverUserID.String(),
+								}),
 							},
 						},
 					},
@@ -340,16 +334,14 @@ func TestProxyOverKCP(t *testing.T) {
 			{
 				Tag: "proxy",
 				ProxySettings: serial.ToTypedMessage(&outbound.Config{
-					Receiver: []*protocol.ServerEndpoint{
-						{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(proxyPort),
-							User: []*protocol.User{
-								{
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id: proxyUserID.String(),
-									}),
-								},
+					Server: &protocol.ServerEndpoint{
+						Address: net.NewIPOrDomain(net.LocalHostIP),
+						Port:    uint32(proxyPort),
+						User: []*protocol.User{
+							{
+								Account: serial.ToTypedMessage(&vmess.Account{
+									Id: proxyUserID.String(),
+								}),
 							},
 						},
 					},
@@ -673,8 +665,7 @@ func TestDialV2Ray(t *testing.T) {
 					User: []*protocol.User{
 						{
 							Account: serial.ToTypedMessage(&vmess.Account{
-								Id:      userID.String(),
-								AlterId: 64,
+								Id: userID.String(),
 							}),
 						},
 					},
@@ -698,20 +689,17 @@ func TestDialV2Ray(t *testing.T) {
 		Outbound: []*core.OutboundHandlerConfig{
 			{
 				ProxySettings: serial.ToTypedMessage(&outbound.Config{
-					Receiver: []*protocol.ServerEndpoint{
-						{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(serverPort),
-							User: []*protocol.User{
-								{
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id:      userID.String(),
-										AlterId: 64,
-										SecuritySettings: &protocol.SecurityConfig{
-											Type: protocol.SecurityType_AES128_GCM,
-										},
-									}),
-								},
+					Server: &protocol.ServerEndpoint{
+						Address: net.NewIPOrDomain(net.LocalHostIP),
+						Port:    uint32(serverPort),
+						User: []*protocol.User{
+							{
+								Account: serial.ToTypedMessage(&vmess.Account{
+									Id: userID.String(),
+									SecuritySettings: &protocol.SecurityConfig{
+										Type: protocol.SecurityType_AES128_GCM,
+									},
+								}),
 							},
 						},
 					},

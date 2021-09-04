@@ -92,8 +92,7 @@ func TestReverseProxy(t *testing.T) {
 					User: []*protocol.User{
 						{
 							Account: serial.ToTypedMessage(&vmess.Account{
-								Id:      userID.String(),
-								AlterId: 64,
+								Id: userID.String(),
 							}),
 						},
 					},
@@ -160,20 +159,17 @@ func TestReverseProxy(t *testing.T) {
 			{
 				Tag: "reverse",
 				ProxySettings: serial.ToTypedMessage(&outbound.Config{
-					Receiver: []*protocol.ServerEndpoint{
-						{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(reversePort),
-							User: []*protocol.User{
-								{
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id:      userID.String(),
-										AlterId: 64,
-										SecuritySettings: &protocol.SecurityConfig{
-											Type: protocol.SecurityType_AES128_GCM,
-										},
-									}),
-								},
+					Server: &protocol.ServerEndpoint{
+						Address: net.NewIPOrDomain(net.LocalHostIP),
+						Port:    uint32(reversePort),
+						User: []*protocol.User{
+							{
+								Account: serial.ToTypedMessage(&vmess.Account{
+									Id: userID.String(),
+									SecuritySettings: &protocol.SecurityConfig{
+										Type: protocol.SecurityType_AES128_GCM,
+									},
+								}),
 							},
 						},
 					},
@@ -277,8 +273,7 @@ func TestReverseProxyLongRunning(t *testing.T) {
 					User: []*protocol.User{
 						{
 							Account: serial.ToTypedMessage(&vmess.Account{
-								Id:      userID.String(),
-								AlterId: 64,
+								Id: userID.String(),
 							}),
 						},
 					},
@@ -359,20 +354,17 @@ func TestReverseProxyLongRunning(t *testing.T) {
 			{
 				Tag: "reverse",
 				ProxySettings: serial.ToTypedMessage(&outbound.Config{
-					Receiver: []*protocol.ServerEndpoint{
-						{
-							Address: net.NewIPOrDomain(net.LocalHostIP),
-							Port:    uint32(reversePort),
-							User: []*protocol.User{
-								{
-									Account: serial.ToTypedMessage(&vmess.Account{
-										Id:      userID.String(),
-										AlterId: 64,
-										SecuritySettings: &protocol.SecurityConfig{
-											Type: protocol.SecurityType_AES128_GCM,
-										},
-									}),
-								},
+					Server: &protocol.ServerEndpoint{
+						Address: net.NewIPOrDomain(net.LocalHostIP),
+						Port:    uint32(reversePort),
+						User: []*protocol.User{
+							{
+								Account: serial.ToTypedMessage(&vmess.Account{
+									Id: userID.String(),
+									SecuritySettings: &protocol.SecurityConfig{
+										Type: protocol.SecurityType_AES128_GCM,
+									},
+								}),
 							},
 						},
 					},
