@@ -20,17 +20,15 @@ func TestVMessOutbound(t *testing.T) {
 	runMultiTestCase(t, []TestCase{
 		{
 			Input: `{
-				"vnext": [{
-					"address": "127.0.0.1",
-					"port": 80,
-					"users": [
-						{
-							"id": "e641f5ad-9397-41e3-bf1a-e8740dfed019",
-							"email": "love@v2fly.org",
-							"level": 255
-						}
-					]
-				}]
+				"address": "127.0.0.1",
+				"port": 80,
+				"users": [
+					{
+						"id": "e641f5ad-9397-41e3-bf1a-e8740dfed019",
+						"email": "love@v2fly.org",
+						"level": 255
+					}
+				]
 			}`,
 			Parser: loadJSON(creator),
 			Output: &outbound.Config{
