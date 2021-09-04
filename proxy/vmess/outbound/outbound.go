@@ -124,7 +124,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 
 	behaviorSeed := crc64.Checksum(hashkdf.Sum(nil), crc64.MakeTable(crc64.ISO))
 
-	session := encoding.NewClientSession(ctx, true, protocol.DefaultIDHash, int64(behaviorSeed))
+	session := encoding.NewClientSession(ctx, protocol.DefaultIDHash, int64(behaviorSeed))
 	sessionPolicy := h.policyManager.ForLevel(request.User.Level)
 
 	ctx, cancel := context.WithCancel(ctx)
