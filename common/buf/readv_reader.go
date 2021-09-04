@@ -5,7 +5,6 @@ package buf
 
 import (
 	"io"
-	"runtime"
 	"syscall"
 
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
@@ -141,11 +140,7 @@ func init() {
 	const defaultFlagValue = "NOT_DEFINED_AT_ALL"
 	value := platform.NewEnvFlag("v2ray.buf.readv").GetValue(func() string { return defaultFlagValue })
 	switch value {
-	case defaultFlagValue, "auto":
-		if (runtime.GOARCH == "386" || runtime.GOARCH == "amd64" || runtime.GOARCH == "s390x") && (runtime.GOOS == "linux" || runtime.GOOS == "darwin" || runtime.GOOS == "windows") {
-			useReadv = true
-		}
-	case "enable":
+	case defaultFlagValue, "auto", "enable":
 		useReadv = true
 	}
 }
