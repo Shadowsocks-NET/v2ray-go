@@ -409,8 +409,9 @@ func TestShadowsocksNone(t *testing.T) {
 	defer tcpServer.Close()
 
 	account := serial.ToTypedMessage(&shadowsocks.Account{
-		Password:   "shadowsocks-password",
-		CipherType: shadowsocks.CipherType_NONE,
+		Password:       "shadowsocks-password",
+		CipherType:     shadowsocks.CipherType_NONE,
+		DisableIvCheck: true,
 	})
 
 	serverPort := tcp.PickPort()
