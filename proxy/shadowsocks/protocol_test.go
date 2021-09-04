@@ -69,8 +69,9 @@ func TestTCPRequest(t *testing.T) {
 				User: &protocol.MemoryUser{
 					Email: "love@v2fly.org",
 					Account: toAccount(&Account{
-						Password:   "tcp-password",
-						CipherType: CipherType_AES_128_GCM,
+						Password:       "tcp-password",
+						CipherType:     CipherType_AES_128_GCM,
+						DisableIvCheck: true,
 					}),
 				},
 			},
@@ -85,8 +86,9 @@ func TestTCPRequest(t *testing.T) {
 				User: &protocol.MemoryUser{
 					Email: "love@v2fly.org",
 					Account: toAccount(&Account{
-						Password:   "password",
-						CipherType: CipherType_AES_256_GCM,
+						Password:       "password",
+						CipherType:     CipherType_AES_256_GCM,
+						DisableIvCheck: true,
 					}),
 				},
 			},
@@ -101,8 +103,9 @@ func TestTCPRequest(t *testing.T) {
 				User: &protocol.MemoryUser{
 					Email: "love@v2fly.org",
 					Account: toAccount(&Account{
-						Password:   "password",
-						CipherType: CipherType_CHACHA20_POLY1305,
+						Password:       "password",
+						CipherType:     CipherType_CHACHA20_POLY1305,
+						DisableIvCheck: true,
 					}),
 				},
 			},
