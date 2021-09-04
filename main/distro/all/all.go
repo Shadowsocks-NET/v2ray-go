@@ -42,8 +42,6 @@ import (
 	_ "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/shadowsocks"
 	_ "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/socks"
 	_ "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/trojan"
-	_ "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vless/inbound"
-	_ "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vless/outbound"
 	_ "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/inbound"
 	_ "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/outbound"
 
