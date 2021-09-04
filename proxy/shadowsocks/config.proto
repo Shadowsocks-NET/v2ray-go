@@ -14,7 +14,7 @@ message Account {
   string password = 1;
   CipherType cipher_type = 2;
 
-  bool iv_check = 3;
+  bool disable_iv_check = 3;
 }
 
 enum CipherType {
@@ -26,9 +26,6 @@ enum CipherType {
 }
 
 message ServerConfig {
-  // UdpEnabled specified whether or not to enable UDP for Shadowsocks.
-  // Deprecated. Use 'network' field.
-  bool udp_enabled = 1 [deprecated = true];
   v2ray.core.common.protocol.User user = 2;
   repeated v2ray.core.common.net.Network network = 3;
 }
