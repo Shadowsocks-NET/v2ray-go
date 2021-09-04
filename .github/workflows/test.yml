@@ -27,11 +27,11 @@ jobs:
     container:
       image: archlinux/archlinux:base-devel
     steps:
-      - uses: actions/checkout@v2
-
       - name: Install dependencies
         run: |
           pacman -Syu --needed --noconfirm go protobuf git
+
+      - uses: actions/checkout@v2
 
       - name: Check Go modules
         run: |
