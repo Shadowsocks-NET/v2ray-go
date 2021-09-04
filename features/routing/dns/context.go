@@ -1,7 +1,5 @@
 package dns
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"

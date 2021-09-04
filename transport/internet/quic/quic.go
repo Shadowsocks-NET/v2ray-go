@@ -8,9 +8,7 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
-// Here is some modification needs to be done before update quic vendor.
+// Here is the modification needs to be done before update quic vendor.
 // * use bytespool in buffer_pool.go
 // * set MaxReceivePacketSize to 1452 - 32 (16 bytes auth, 16 bytes head)
 //

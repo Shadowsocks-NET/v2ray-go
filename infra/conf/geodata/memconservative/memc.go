@@ -7,8 +7,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 type memConservativeLoader struct {
 	geoipcache   GeoIPCache
 	geositecache GeoSiteCache

@@ -21,8 +21,6 @@ import (
 	"github.com/v2fly/BrowserBridge/handler"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 type Forwarder struct {
 	ctx context.Context
 

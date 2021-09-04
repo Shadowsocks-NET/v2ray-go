@@ -27,6 +27,11 @@ jobs:
         run: |
           pacman -Syu --needed --noconfirm go protobuf
 
+      - name: Run go generate
+        run: |
+          go generate proto.go
+          go generate
+
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2.5.2
         with:

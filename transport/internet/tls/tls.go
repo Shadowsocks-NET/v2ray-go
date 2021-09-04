@@ -10,8 +10,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 var _ buf.Writer = (*Conn)(nil)
 
 type Conn struct {
