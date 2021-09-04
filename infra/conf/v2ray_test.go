@@ -43,16 +43,12 @@ func TestV2RayConfig(t *testing.T) {
 	runMultiTestCase(t, []TestCase{
 		{
 			Input: `{
-				"outbound": {
-					"protocol": "freedom",
-					"settings": {}
-				},
 				"log": {
 					"access": "/var/log/v2ray/access.log",
 					"loglevel": "error",
 					"error": "/var/log/v2ray/error.log"
 				},
-				"inbound": {
+				"inbounds": [{
 					"streamSettings": {
 						"network": "ws",
 						"wsSettings": {
@@ -77,7 +73,7 @@ func TestV2RayConfig(t *testing.T) {
 						]
 					}
 				},
-				"inbounds": [{
+				{
 					"streamSettings": {
 						"network": "ws",
 						"wsSettings": {
@@ -106,7 +102,11 @@ func TestV2RayConfig(t *testing.T) {
 						]
 					}
 				}],
-				"outboundDetour": [
+				"outbounds": [
+					{
+						"protocol": "freedom",
+						"settings": {}
+					},
 					{
 						"tag": "blocked",
 						"protocol": "blackhole"
