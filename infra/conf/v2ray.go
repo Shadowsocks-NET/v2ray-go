@@ -3,6 +3,7 @@ package conf
 import (
 	"encoding/json"
 	"log"
+	gonet "net"
 	"os"
 	"strings"
 
@@ -10,6 +11,7 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dispatcher"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/stats"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
 )
@@ -250,26 +252,146 @@ func (c *InboundDetourConfig) Build() (*core.InboundHandlerConfig, error) {
 }
 
 type OutboundDetourConfig struct {
-	Protocol      string             `json:"protocol"`
-	SendThrough   *cfgcommon.Address `json:"sendThrough"`
-	Tag           string             `json:"tag"`
-	Settings      *json.RawMessage   `json:"settings"`
-	StreamSetting *StreamConfig      `json:"streamSettings"`
-	ProxySettings *ProxyConfig       `json:"proxySettings"`
-	MuxSettings   *MuxConfig         `json:"mux"`
+	Protocol string `json:"protocol"`
+
+	// Name of the network interface to bind.
+	BindInterface string `json:"bindInterface"`
+
+	// Bind to an IPv4 address or the IPv4 address of an interface.
+	// When an interface is specified, the address is a domain.
+	Bind4 *cfgcommon.Address `json:"bind4"`
+
+	// Bind to an IPv6 address or the IPv6 address of an interface.
+	// When an interface is specified, the address is a domain.
+	Bind6 *cfgcommon.Address `json:"bind6"`
+
+	// DomainStrategy controls how domain dial targets are processed.
+	DomainStrategy string `json:"domainStrategy"`
+
+	// FallbackDelayMs controls the RFC 6555 happy eyeballs fast fallback delay in milliseconds.
+	FallbackDelayMs int32 `json:"fallbackDelayMs"`
+
+	Tag           string           `json:"tag"`
+	Settings      *json.RawMessage `json:"settings"`
+	StreamSetting *StreamConfig    `json:"streamSettings"`
+	ProxySettings *ProxyConfig     `json:"proxySettings"`
+	MuxSettings   *MuxConfig       `json:"mux"`
 }
 
 // Build implements Buildable.
 func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 	senderSettings := &proxyman.SenderConfig{}
 
-	if c.SendThrough != nil {
-		address := c.SendThrough
-		if address.Family().IsDomain() {
-			return nil, newError("unable to send through: " + address.String())
+	if c.BindInterface != "" {
+		iface, err := gonet.InterfaceByName(c.BindInterface)
+		if err != nil {
+			return nil, err
 		}
-		senderSettings.Via = address.Build()
+
+		addrs, err := iface.Addrs()
+		if err != nil {
+			return nil, err
+		}
+
+		newError(c.BindInterface, "has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+
+		for _, addr := range addrs {
+			vaddr := net.ParseAddress(addr.String())
+			newError("Processing ", vaddr, " family ", vaddr.Family()).AtDebug().WriteToLog()
+			if c.Bind4 == nil && vaddr.Family().IsIPv4() {
+				c.Bind4 = &cfgcommon.Address{
+					Address: vaddr,
+				}
+				newError("IPv4 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
+			} else if c.Bind6 == nil && vaddr.Family().IsIPv6() {
+				c.Bind6 = &cfgcommon.Address{
+					Address: vaddr,
+				}
+				newError("IPv6 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
+			} else {
+				newError("Skipping IP ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
+			}
+		}
 	}
+
+	if c.Bind4 != nil {
+		if c.Bind4.Family().IsIPv4() {
+			senderSettings.Via4 = c.Bind4.Build()
+		} else if c.Bind4.Family().IsDomain() {
+			iface, err := gonet.InterfaceByName(c.Bind4.String())
+			if err != nil {
+				return nil, err
+			}
+
+			addrs, err := iface.Addrs()
+			if err != nil {
+				return nil, err
+			}
+
+			newError(c.Bind4, "has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+
+			for _, addr := range addrs {
+				vaddr := net.ParseAddress(addr.String())
+				if vaddr.Family().IsIPv4() {
+					c.Bind4 = &cfgcommon.Address{
+						Address: vaddr,
+					}
+					newError("IPv4 local address set to ", vaddr).AtInfo().WriteToLog()
+					break
+				} else {
+					newError("Skipping IP ", vaddr, " from ", c.Bind4).AtInfo().WriteToLog()
+				}
+			}
+		} else {
+			return nil, newError("Invalid bind4: ", c.Bind4)
+		}
+	}
+
+	if c.Bind6 != nil {
+		if c.Bind6.Family().IsIPv6() {
+			senderSettings.Via6 = c.Bind6.Build()
+		} else if c.Bind6.Family().IsDomain() {
+			iface, err := gonet.InterfaceByName(c.Bind6.String())
+			if err != nil {
+				return nil, err
+			}
+
+			addrs, err := iface.Addrs()
+			if err != nil {
+				return nil, err
+			}
+
+			newError(c.Bind6, "has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+
+			for _, addr := range addrs {
+				vaddr := net.ParseAddress(addr.String())
+				if vaddr.Family().IsIPv6() {
+					c.Bind6 = &cfgcommon.Address{
+						Address: vaddr,
+					}
+					newError("IPv6 local address set to ", vaddr).AtInfo().WriteToLog()
+					break
+				} else {
+					newError("Skipping IP ", vaddr, " from ", c.Bind6).AtInfo().WriteToLog()
+				}
+			}
+		} else {
+			return nil, newError("Invalid bind6: ", c.Bind6)
+		}
+	}
+
+	switch c.DomainStrategy {
+	case "":
+		senderSettings.DomainStrategy = proxyman.DomainStrategy_AS_IS
+	case "UseIP":
+		senderSettings.DomainStrategy = proxyman.DomainStrategy_USE_IP
+	case "UseIPv4":
+		senderSettings.DomainStrategy = proxyman.DomainStrategy_USE_IP4
+	case "UseIPv6":
+		senderSettings.DomainStrategy = proxyman.DomainStrategy_USE_IP6
+	}
+
+	senderSettings.FallbackDelayMs = c.FallbackDelayMs
 
 	if c.StreamSetting != nil {
 		ss, err := c.StreamSetting.Build()

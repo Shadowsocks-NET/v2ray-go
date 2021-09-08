@@ -37,3 +37,11 @@ func (c *ReceiverConfig) GetEffectiveSniffingSettings() *SniffingConfig {
 
 	return nil
 }
+
+func (c *SenderConfig) UseIP() bool {
+	return c.DomainStrategy == DomainStrategy_USE_IP || c.DomainStrategy == DomainStrategy_USE_IP4 || c.DomainStrategy == DomainStrategy_USE_IP6
+}
+
+func (c *SenderConfig) IsAdvanced() bool {
+	return c.Via4 != nil || c.Via6 != nil || c.DomainStrategy != DomainStrategy_AS_IS || c.FallbackDelayMs != 0
+}

@@ -89,6 +89,12 @@ func ParseAddress(addr string) Address {
 	if ip != nil {
 		return IPAddress(ip)
 	}
+
+	ip, _, err := net.ParseCIDR(addr)
+	if err == nil {
+		return IPAddress(ip)
+	}
+
 	return DomainAddress(addr)
 }
 

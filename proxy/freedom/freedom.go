@@ -7,18 +7,15 @@ package freedom
 
 import (
 	"context"
-	"time"
 
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/dice"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/retry"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
-	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/policy"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
@@ -27,8 +24,8 @@ import (
 func init() {
 	common.Must(common.RegisterConfig((*Config)(nil), func(ctx context.Context, config interface{}) (interface{}, error) {
 		h := new(Handler)
-		if err := core.RequireFeatures(ctx, func(pm policy.Manager, d dns.Client) error {
-			return h.Init(config.(*Config), pm, d)
+		if err := core.RequireFeatures(ctx, func(pm policy.Manager) error {
+			return h.Init(config.(*Config), pm)
 		}); err != nil {
 			return nil, err
 		}
@@ -39,53 +36,15 @@ func init() {
 // Handler handles Freedom connections.
 type Handler struct {
 	policyManager policy.Manager
-	dns           dns.Client
 	config        *Config
 }
 
 // Init initializes the Handler with necessary parameters.
-func (h *Handler) Init(config *Config, pm policy.Manager, d dns.Client) error {
+func (h *Handler) Init(config *Config, pm policy.Manager) error {
 	h.config = config
 	h.policyManager = pm
-	h.dns = d
 
 	return nil
-}
-
-func (h *Handler) policy() policy.Session {
-	p := h.policyManager.ForLevel(h.config.UserLevel)
-	if h.config.Timeout > 0 && h.config.UserLevel == 0 {
-		p.Timeouts.ConnectionIdle = time.Duration(h.config.Timeout) * time.Second
-	}
-	return p
-}
-
-func (h *Handler) resolveIP(ctx context.Context, domain string, localAddr net.Address) net.Address {
-	if c, ok := h.dns.(dns.ClientWithIPOption); ok {
-		c.SetFakeDNSOption(false) // Skip FakeDNS
-	} else {
-		newError("DNS client doesn't implement ClientWithIPOption")
-	}
-
-	lookupFunc := h.dns.LookupIP
-	if h.config.DomainStrategy == Config_USE_IP4 || (localAddr != nil && localAddr.Family().IsIPv4()) {
-		if lookupIPv4, ok := h.dns.(dns.IPv4Lookup); ok {
-			lookupFunc = lookupIPv4.LookupIPv4
-		}
-	} else if h.config.DomainStrategy == Config_USE_IP6 || (localAddr != nil && localAddr.Family().IsIPv6()) {
-		if lookupIPv6, ok := h.dns.(dns.IPv6Lookup); ok {
-			lookupFunc = lookupIPv6.LookupIPv6
-		}
-	}
-
-	ips, err := lookupFunc(domain)
-	if err != nil {
-		newError("failed to get IP address for domain ", domain).Base(err).WriteToLog(session.ExportIDToError(ctx))
-	}
-	if len(ips) == 0 {
-		return nil
-	}
-	return net.IPAddress(ips[dice.Roll(len(ips))])
 }
 
 func isValidAddress(addr *net.IPOrDomain) bool {
@@ -120,20 +79,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 
 	var conn internet.Connection
 	err := retry.ExponentialBackoff(5, 100).On(func() error {
-		dialDest := destination
-		if h.config.useIP() && dialDest.Address.Family().IsDomain() {
-			ip := h.resolveIP(ctx, dialDest.Address.Domain(), dialer.Address())
-			if ip != nil {
-				dialDest = net.Destination{
-					Network: dialDest.Network,
-					Address: ip,
-					Port:    dialDest.Port,
-				}
-				newError("dialing to ", dialDest).WriteToLog(session.ExportIDToError(ctx))
-			}
-		}
-
-		rawConn, err := dialer.Dial(ctx, dialDest)
+		rawConn, err := dialer.Dial(ctx, destination)
 		if err != nil {
 			return err
 		}
@@ -145,7 +91,7 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	}
 	defer conn.Close()
 
-	plcy := h.policy()
+	plcy := h.policyManager.ForLevel(h.config.UserLevel)
 	ctx, cancel := context.WithCancel(ctx)
 	timer := signal.CancelAfterInactivity(ctx, cancel, plcy.Timeouts.ConnectionIdle)
 

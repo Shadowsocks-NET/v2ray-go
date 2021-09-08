@@ -85,12 +85,21 @@ message InboundHandlerConfig {
 
 message OutboundConfig {}
 
+enum DomainStrategy {
+  AS_IS = 0;
+  USE_IP = 1;
+  USE_IP4 = 2;
+  USE_IP6 = 3;
+}
+
 message SenderConfig {
-  // Send traffic through the given IP. Only IP is allowed.
-  v2ray.core.common.net.IPOrDomain via = 1;
   v2ray.core.transport.internet.StreamConfig stream_settings = 2;
   v2ray.core.transport.internet.ProxyConfig proxy_settings = 3;
   MultiplexingConfig multiplex_settings = 4;
+  v2ray.core.common.net.IPOrDomain via4 = 5;
+  v2ray.core.common.net.IPOrDomain via6 = 6;
+  DomainStrategy domain_strategy = 7;
+  int32 fallback_delay_ms = 8;
 }
 
 message MultiplexingConfig {

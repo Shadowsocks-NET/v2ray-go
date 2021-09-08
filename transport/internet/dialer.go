@@ -2,9 +2,11 @@ package internet
 
 import (
 	"context"
+	"time"
 
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tagged"
 )
 
@@ -13,14 +15,17 @@ type Dialer interface {
 	// Dial dials a system connection to the given destination.
 	Dial(ctx context.Context, destination net.Destination) (Connection, error)
 
-	// Address returns the address used by this Dialer. Maybe nil if not known.
-	Address() net.Address
+	// Addresses returns the local IPv4 and IPv6 addresses used by this Dialer. Maybe nil if not known.
+	Addresses() (addr4, addr6 net.Address)
 }
 
 // dialFunc is an interface to dial network connection to a specific destination.
 type dialFunc func(ctx context.Context, dest net.Destination, streamSettings *MemoryStreamConfig) (Connection, error)
 
-var transportDialerCache = make(map[string]dialFunc)
+var (
+	transportDialerCache = make(map[string]dialFunc)
+	DialerDnsClient      dns.Client
+)
 
 // RegisterTransportDialer registers a Dialer with given name.
 func RegisterTransportDialer(protocol string, dialer dialFunc) error {
@@ -63,16 +68,48 @@ func Dial(ctx context.Context, dest net.Destination, streamSettings *MemoryStrea
 
 // DialSystem calls system dialer to create a network connection.
 func DialSystem(ctx context.Context, dest net.Destination, sockopt *SocketConfig) (net.Conn, error) {
-	var src net.Address
+	var la4, la6 net.Address
+	var domainStrategy int32
+	var fallbackDelay time.Duration
+
 	if outbound := session.OutboundFromContext(ctx); outbound != nil {
-		src = outbound.Gateway
+		la4 = outbound.Bind4
+		la6 = outbound.Bind6
+		domainStrategy = outbound.DomainStrategy
+		fallbackDelay = time.Duration(outbound.FallbackDelayMs) * time.Millisecond
 	}
 
 	if transportLayerOutgoingTag := session.GetTransportLayerProxyTagFromContext(ctx); transportLayerOutgoingTag != "" {
 		return DialTaggedOutbound(ctx, dest, transportLayerOutgoingTag)
 	}
 
-	return effectiveSystemDialer.Dial(ctx, src, dest, sockopt)
+	effectiveSystemDialer.SetFallbackDelay(fallbackDelay)
+	newError("Set fallback delay to ", fallbackDelay).AtDebug().WriteToLog()
+
+	if domainStrategy == 0 && la4 == nil && la6 == nil {
+		return effectiveSystemDialer.Dial(ctx, nil, dest, sockopt)
+	}
+
+	ips4, ips6 := resolveIP(ctx, domainStrategy, dest.Address, la4, la6)
+	var dests4, dests6 []net.Destination
+
+	for _, ip4 := range ips4 {
+		dests4 = append(dests4, net.Destination{
+			Address: net.IPAddress(ip4),
+			Port:    dest.Port,
+			Network: dest.Network,
+		})
+	}
+
+	for _, ip6 := range ips6 {
+		dests6 = append(dests6, net.Destination{
+			Address: net.IPAddress(ip6),
+			Port:    dest.Port,
+			Network: dest.Network,
+		})
+	}
+
+	return effectiveSystemDialer.DialIPs(ctx, la4, dests4, la6, dests6, sockopt)
 }
 
 func DialTaggedOutbound(ctx context.Context, dest net.Destination, tag string) (net.Conn, error) {
@@ -80,4 +117,55 @@ func DialTaggedOutbound(ctx context.Context, dest net.Destination, tag string) (
 		return nil, newError("tagged dial not enabled")
 	}
 	return tagged.Dialer(ctx, dest, tag)
+}
+
+func resolveIP(ctx context.Context, domainStrategy int32, address net.Address, la4 net.Address, la6 net.Address) (ips4, ips6 []net.IP) {
+	newError("resolveIP processing ", address).AtDebug().WriteToLog()
+	if DialerDnsClient == nil {
+		newError("DNS client is nil").AtError().WriteToLog()
+		return
+	}
+
+	if address.Family().IsIP() {
+		newError(address, " is IP").AtDebug().WriteToLog()
+		ip := address.IP()
+		if ip.To4() == nil {
+			ips6 = append(ips6, ip)
+		} else {
+			ips4 = append(ips4, ip)
+		}
+		return
+	}
+
+	domain := address.Domain()
+
+	if c, ok := DialerDnsClient.(dns.ClientWithIPOption); ok {
+		c.SetFakeDNSOption(false) // Skip FakeDNS
+	} else {
+		newError("DNS client doesn't implement ClientWithIPOption")
+	}
+
+	var err error
+	switch domainStrategy {
+	case 0, 1:
+		var ips []net.IP
+		ips, err = DialerDnsClient.LookupIP(domain)
+		for _, ip := range ips {
+			if ip.To4() == nil {
+				ips6 = append(ips6, ip)
+			} else {
+				ips4 = append(ips4, ip)
+			}
+		}
+	case 2:
+		ips4, err = DialerDnsClient.(dns.IPv4Lookup).LookupIPv4(domain)
+	case 3:
+		ips6, err = DialerDnsClient.(dns.IPv6Lookup).LookupIPv6(domain)
+	}
+
+	if err != nil {
+		newError("failed to get IP address for domain ", domain).Base(err).WriteToLog(session.ExportIDToError(ctx))
+	}
+
+	return
 }

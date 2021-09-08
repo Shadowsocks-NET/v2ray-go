@@ -18,6 +18,7 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/policy"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/stats"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 )
 
 // Server is an instance of V2Ray. At any time, there must be at most one Server instance running.
@@ -234,6 +235,7 @@ func initInstanceWithConfig(config *Config, server *Instance) (bool, error) {
 	if err := addOutboundHandlers(server, config.Outbound); err != nil {
 		return true, err
 	}
+
 	return false, nil
 }
 
@@ -338,6 +340,12 @@ func (s *Instance) Start() error {
 		if err := f.Start(); err != nil {
 			return err
 		}
+	}
+
+	if dnsClient := s.GetFeature(dns.ClientType()); dnsClient != nil {
+		internet.DialerDnsClient = dnsClient.(dns.Client)
+	} else {
+		return newError("failed to assign dns.Client to internet.dialer")
 	}
 
 	newError("V2Ray ", Version(), " started").AtWarning().WriteToLog()

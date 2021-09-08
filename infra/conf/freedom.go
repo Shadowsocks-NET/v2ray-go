@@ -2,7 +2,6 @@ package conf
 
 import (
 	"net"
-	"strings"
 
 	v2net "github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
@@ -11,28 +10,14 @@ import (
 )
 
 type FreedomConfig struct {
-	DomainStrategy string  `json:"domainStrategy"`
-	Timeout        *uint32 `json:"timeout"`
-	Redirect       string  `json:"redirect"`
-	UserLevel      uint32  `json:"userLevel"`
+	DomainStrategy string `json:"domainStrategy"`
+	Redirect       string `json:"redirect"`
+	UserLevel      uint32 `json:"userLevel"`
 }
 
 // Build implements Buildable
 func (c *FreedomConfig) Build() (proto.Message, error) {
 	config := new(freedom.Config)
-	config.DomainStrategy = freedom.Config_AS_IS
-	switch strings.ToLower(c.DomainStrategy) {
-	case "useip", "use_ip", "use-ip":
-		config.DomainStrategy = freedom.Config_USE_IP
-	case "useip4", "useipv4", "use_ip4", "use_ipv4", "use_ip_v4", "use-ip4", "use-ipv4", "use-ip-v4":
-		config.DomainStrategy = freedom.Config_USE_IP4
-	case "useip6", "useipv6", "use_ip6", "use_ipv6", "use_ip_v6", "use-ip6", "use-ipv6", "use-ip-v6":
-		config.DomainStrategy = freedom.Config_USE_IP6
-	}
-
-	if c.Timeout != nil {
-		config.Timeout = *c.Timeout
-	}
 	config.UserLevel = c.UserLevel
 	if len(c.Redirect) > 0 {
 		host, portStr, err := net.SplitHostPort(c.Redirect)
