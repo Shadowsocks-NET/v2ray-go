@@ -13,6 +13,7 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/blackhole"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/freedom"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/socks"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
 	xproxy "golang.org/x/net/proxy"
@@ -76,6 +77,7 @@ func TestResolveIP(t *testing.T) {
 				SenderSettings: serial.ToTypedMessage(&proxyman.SenderConfig{
 					DomainStrategy: proxyman.DomainStrategy_USE_IP,
 				}),
+				ProxySettings: serial.ToTypedMessage(&freedom.Config{}),
 			},
 		},
 	}
