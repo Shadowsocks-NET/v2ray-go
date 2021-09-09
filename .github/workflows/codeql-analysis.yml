@@ -2,8 +2,17 @@ name: CodeQL
 
 on:
   push:
+    branches:
+      - main
+      - v*
+    paths:
+      - "**/*.go"
+      - ".github/workflows/linter.yml"
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.go"
+      - ".github/workflows/codeql-analysis.yml"
 
 jobs:
   analyze:
