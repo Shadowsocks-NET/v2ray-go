@@ -90,7 +90,7 @@ func DialSystem(ctx context.Context, dest net.Destination, sockopt *SocketConfig
 		return effectiveSystemDialer.Dial(ctx, nil, dest, sockopt)
 	}
 
-	ips4, ips6 := resolveIP(ctx, domainStrategy, dest.Address, la4, la6)
+	ips4, ips6 := resolveIP(ctx, domainStrategy, dest.Address)
 	var dests4, dests6 []net.Destination
 
 	for _, ip4 := range ips4 {
@@ -119,7 +119,7 @@ func DialTaggedOutbound(ctx context.Context, dest net.Destination, tag string) (
 	return tagged.Dialer(ctx, dest, tag)
 }
 
-func resolveIP(ctx context.Context, domainStrategy int32, address net.Address, la4 net.Address, la6 net.Address) (ips4, ips6 []net.IP) {
+func resolveIP(ctx context.Context, domainStrategy int32, address net.Address) (ips4, ips6 []net.IP) {
 	newError("resolveIP processing ", address).AtDebug().WriteToLog()
 	if DialerDnsClient == nil {
 		newError("DNS client is nil").AtError().WriteToLog()
