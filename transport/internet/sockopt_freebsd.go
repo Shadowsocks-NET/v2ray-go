@@ -123,7 +123,7 @@ func OriginalDst(la, ra net.Addr) (net.IP, int, error) {
 	return odIP, odPort, nil
 }
 
-func applyOutboundSocketOptions(network string, address string, fd uintptr, config *SocketConfig) error {
+func applyOutboundSocketOptions(network string, address string, fd uintptr, config *SocketConfig, dest net.Destination) error {
 	if config.Mark != 0 {
 		if err := syscall.SetsockoptInt(int(fd), syscall.SOL_SOCKET, syscall.SO_USER_COOKIE, int(config.Mark)); err != nil {
 			return newError("failed to set SO_USER_COOKIE").Base(err)

@@ -86,6 +86,14 @@ message SocketConfig {
   // option. This option is for UDP only.
   bool receive_original_dest_address = 4;
 
+  uint32 bind_interface_index = 9;
+
+  string bind_interface_name = 10;
+
+  bytes bind_interface_ip4 = 11;
+
+  bytes bind_interface_ip6 = 12;
+
   bytes bind_address = 5;
 
   uint32 bind_port = 6;

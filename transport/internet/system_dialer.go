@@ -66,24 +66,59 @@ func (d *DefaultSystemDialer) SetFallbackDelay(t time.Duration) {
 func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest net.Destination, sockopt *SocketConfig) (net.Conn, error) {
 	if dest.Network == net.Network_UDP && !hasBindAddr(sockopt) {
 		srcAddr := resolveSrcAddr(net.Network_UDP, src)
-		if srcAddr == nil {
-			srcAddr = &net.UDPAddr{
-				IP:   []byte{0, 0, 0, 0},
-				Port: 0,
+		var destAddr *net.UDPAddr
+		addressFamily := dest.Address.Family()
+
+		switch addressFamily {
+		case net.AddressFamilyDomain:
+			if srcAddr == nil {
+				srcAddr = &net.UDPAddr{
+					IP:   sockopt.BindInterfaceIp4,
+					Port: 0,
+				}
+			}
+			var err error
+			destAddr, err = net.ResolveUDPAddr("udp", dest.NetAddr())
+			if err != nil {
+				return nil, err
+			}
+			if destAddr.IP.To4() == nil {
+				addressFamily = net.AddressFamilyIPv6
+			} else {
+				addressFamily = net.AddressFamilyIPv4
+			}
+
+		case net.AddressFamilyIPv4:
+			if srcAddr == nil {
+				srcAddr = &net.UDPAddr{
+					IP:   sockopt.BindInterfaceIp4,
+					Port: 0,
+				}
+			}
+			destAddr = &net.UDPAddr{
+				IP:   dest.Address.IP(),
+				Port: int(dest.Port),
+			}
+
+		case net.AddressFamilyIPv6:
+			if srcAddr == nil {
+				srcAddr = &net.UDPAddr{
+					IP:   sockopt.BindInterfaceIp6,
+					Port: 0,
+				}
+			}
+			destAddr = &net.UDPAddr{
+				IP:   dest.Address.IP(),
+				Port: int(dest.Port),
 			}
 		}
+
 		packetConn, err := ListenSystemPacket(ctx, srcAddr, sockopt)
 		if err != nil {
 			return nil, err
 		}
-		destAddr, err := net.ResolveUDPAddr("udp", dest.NetAddr())
-		if err != nil {
-			return nil, err
-		}
-		return &packetConnWrapper{
-			conn: packetConn,
-			dest: destAddr,
-		}, nil
+
+		return newUdpConnWrapper(packetConn.(*net.UDPConn), src, destAddr, addressFamily, sockopt)
 	}
 
 	dialer := &net.Dialer{
@@ -95,7 +130,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		dialer.Control = func(network, address string, c syscall.RawConn) error {
 			return c.Control(func(fd uintptr) {
 				if sockopt != nil {
-					if err := applyOutboundSocketOptions(network, address, fd, sockopt); err != nil {
+					if err := applyOutboundSocketOptions(network, address, fd, sockopt, dest); err != nil {
 						newError("failed to apply socket options").Base(err).WriteToLog(session.ExportIDToError(ctx))
 					}
 					if dest.Network == net.Network_UDP && hasBindAddr(sockopt) {
@@ -298,41 +333,42 @@ func (d *DefaultSystemDialer) fallbackDelay() time.Duration {
 	}
 }
 
-type packetConnWrapper struct {
-	conn net.PacketConn
-	dest net.Addr
+type udpConnWrapper struct {
+	conn *net.UDPConn
+	oob  []byte
+	da   *net.UDPAddr
 }
 
-func (c *packetConnWrapper) Close() error {
+func (c *udpConnWrapper) Close() error {
 	return c.conn.Close()
 }
 
-func (c *packetConnWrapper) LocalAddr() net.Addr {
+func (c *udpConnWrapper) LocalAddr() net.Addr {
 	return c.conn.LocalAddr()
 }
 
-func (c *packetConnWrapper) RemoteAddr() net.Addr {
-	return c.dest
+func (c *udpConnWrapper) RemoteAddr() net.Addr {
+	return c.da
 }
 
-func (c *packetConnWrapper) Write(p []byte) (int, error) {
-	return c.conn.WriteTo(p, c.dest)
-}
-
-func (c *packetConnWrapper) Read(p []byte) (int, error) {
-	n, _, err := c.conn.ReadFrom(p)
+func (c *udpConnWrapper) Write(p []byte) (int, error) {
+	n, _, err := c.conn.WriteMsgUDP(p, c.oob, c.da)
 	return n, err
 }
 
-func (c *packetConnWrapper) SetDeadline(t time.Time) error {
+func (c *udpConnWrapper) Read(p []byte) (int, error) {
+	return c.conn.Read(p)
+}
+
+func (c *udpConnWrapper) SetDeadline(t time.Time) error {
 	return c.conn.SetDeadline(t)
 }
 
-func (c *packetConnWrapper) SetReadDeadline(t time.Time) error {
+func (c *udpConnWrapper) SetReadDeadline(t time.Time) error {
 	return c.conn.SetReadDeadline(t)
 }
 
-func (c *packetConnWrapper) SetWriteDeadline(t time.Time) error {
+func (c *udpConnWrapper) SetWriteDeadline(t time.Time) error {
 	return c.conn.SetWriteDeadline(t)
 }
 

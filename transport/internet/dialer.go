@@ -86,7 +86,7 @@ func DialSystem(ctx context.Context, dest net.Destination, sockopt *SocketConfig
 	effectiveSystemDialer.SetFallbackDelay(fallbackDelay)
 	newError("Set fallback delay to ", fallbackDelay).AtDebug().WriteToLog()
 
-	if domainStrategy == 0 && la4 == nil && la6 == nil {
+	if domainStrategy == 0 && la4 == nil && la6 == nil && sockopt.BindInterfaceIndex == 0 {
 		return effectiveSystemDialer.Dial(ctx, nil, dest, sockopt)
 	}
 

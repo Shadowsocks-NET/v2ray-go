@@ -5,6 +5,7 @@ import (
 	"log"
 	gonet "net"
 	"os"
+	"runtime"
 	"strings"
 
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
@@ -14,6 +15,7 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 )
 
 var (
@@ -282,18 +284,28 @@ type OutboundDetourConfig struct {
 func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 	senderSettings := &proxyman.SenderConfig{}
 
+	var bindInterfaceIndex uint32
+	var bindInterfaceName string
+	var bindInterfaceIp4 []byte
+	var bindInterfaceIp6 []byte
+
 	if c.BindInterface != "" {
 		iface, err := gonet.InterfaceByName(c.BindInterface)
 		if err != nil {
 			return nil, err
 		}
 
+		if runtime.GOOS == "linux" || runtime.GOOS == "darwin" || runtime.GOOS == "windows" {
+			bindInterfaceIndex = uint32(iface.Index)
+			bindInterfaceName = iface.Name
+			newError("Outbound ", c.Tag, " bound to interface index ", bindInterfaceIndex, " name ", bindInterfaceName).AtInfo().WriteToLog()
+		}
 		addrs, err := iface.Addrs()
 		if err != nil {
 			return nil, err
 		}
 
-		newError(c.BindInterface, "has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+		newError(c.BindInterface, " has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
 
 		for _, addr := range addrs {
 			vaddr := net.ParseAddress(addr.String())
@@ -302,11 +314,13 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 				c.Bind4 = &cfgcommon.Address{
 					Address: vaddr,
 				}
+				bindInterfaceIp4 = vaddr.IP()
 				newError("IPv4 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
 			} else if c.Bind6 == nil && vaddr.Family().IsIPv6() {
 				c.Bind6 = &cfgcommon.Address{
 					Address: vaddr,
 				}
+				bindInterfaceIp6 = vaddr.IP()
 				newError("IPv6 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
 			} else {
 				newError("Skipping IP ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
@@ -314,7 +328,7 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 		}
 	}
 
-	if c.Bind4 != nil {
+	if c.Bind4 != nil && bindInterfaceIndex == 0 {
 		if c.Bind4.Family().IsIPv4() {
 			senderSettings.Via4 = c.Bind4.Build()
 		} else if c.Bind4.Family().IsDomain() {
@@ -347,7 +361,7 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 		}
 	}
 
-	if c.Bind6 != nil {
+	if c.Bind6 != nil && bindInterfaceIndex == 0 {
 		if c.Bind6.Family().IsIPv6() {
 			senderSettings.Via6 = c.Bind6.Build()
 		} else if c.Bind6.Family().IsDomain() {
@@ -398,7 +412,21 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 		if err != nil {
 			return nil, err
 		}
+		ss.SocketSettings.BindInterfaceIndex = bindInterfaceIndex
+		ss.SocketSettings.BindInterfaceName = bindInterfaceName
+		ss.SocketSettings.BindInterfaceIp4 = bindInterfaceIp4
+		ss.SocketSettings.BindInterfaceIp6 = bindInterfaceIp6
 		senderSettings.StreamSettings = ss
+	} else {
+		senderSettings.StreamSettings = &internet.StreamConfig{
+			ProtocolName: "tcp",
+			SocketSettings: &internet.SocketConfig{
+				BindInterfaceIndex: bindInterfaceIndex,
+				BindInterfaceName:  bindInterfaceName,
+				BindInterfaceIp4:   bindInterfaceIp4,
+				BindInterfaceIp6:   bindInterfaceIp6,
+			},
+		}
 	}
 
 	if c.ProxySettings != nil {
