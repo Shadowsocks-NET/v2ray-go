@@ -15,8 +15,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 type Certificate struct {
 	// Cerificate in ASN.1 DER format
 	Certificate []byte

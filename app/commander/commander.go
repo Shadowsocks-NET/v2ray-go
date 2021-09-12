@@ -3,8 +3,6 @@
 
 package commander
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 import (
 	"context"
 	"net"

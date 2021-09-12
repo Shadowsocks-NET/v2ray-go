@@ -1,3 +1,9 @@
+# Protobuf generated files
+*.pb.go
+
+# errorgen
+errors.generated.go
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -24,5 +30,5 @@ mockgen
 vprotogen
 !infra/vprotogen/
 errorgen
-!common/errors/errorgen/
+!infra/errorgen/
 *.dat

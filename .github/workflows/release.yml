@@ -53,6 +53,15 @@ jobs:
         run: |
           pacman -Syu --needed --noconfirm go protobuf wget zip
 
+      - name: Run go generate
+        run: |
+          unset GOOS
+          unset GOARCH
+          unset GOARM
+          unset CGO_ENABLED
+          go generate proto.go
+          go generate
+
       - name: Build V2Ray
         run: |
           mkdir -p build_assets

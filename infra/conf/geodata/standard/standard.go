@@ -9,8 +9,6 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 func loadIP(filename, country string) ([]*router.CIDR, error) {
 	geoipBytes, err := filesystem.ReadAsset(filename)
 	if err != nil {

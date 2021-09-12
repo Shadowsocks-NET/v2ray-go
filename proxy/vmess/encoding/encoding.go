@@ -5,8 +5,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 const (
 	Version = byte(1)
 )

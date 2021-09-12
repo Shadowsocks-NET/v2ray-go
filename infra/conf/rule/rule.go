@@ -11,8 +11,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
 )
 
-//go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
-
 func parseDomainRule(ctx context.Context, domain string) ([]*router.Domain, error) {
 	cfgEnv := cfgcommon.GetConfigureLoadingEnvironment(ctx)
 	geoLoader := cfgEnv.GetGeoLoader()
