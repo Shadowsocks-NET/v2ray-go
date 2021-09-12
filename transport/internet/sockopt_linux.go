@@ -44,7 +44,7 @@ func applyOutboundSocketOptions(network string, address string, fd uintptr, conf
 		}
 	}
 
-	if config.BindInterfaceIndex != 0 {
+	if config.HasBindInterface() {
 		switch network {
 		case "tcp4", "tcp6":
 			if err := unix.BindToDevice(int(fd), config.BindInterfaceName); err != nil {

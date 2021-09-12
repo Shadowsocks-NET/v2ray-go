@@ -51,10 +51,6 @@ func resolveSrcAddr(network net.Network, src net.Address) net.Addr {
 	}
 }
 
-func hasBindAddr(sockopt *SocketConfig) bool {
-	return sockopt != nil && len(sockopt.BindAddress) > 0 && sockopt.BindPort > 0
-}
-
 func (d *DefaultSystemDialer) GetFallbackDelay() time.Duration {
 	return d.FallbackDelay
 }
@@ -64,16 +60,25 @@ func (d *DefaultSystemDialer) SetFallbackDelay(t time.Duration) {
 }
 
 func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest net.Destination, sockopt *SocketConfig) (net.Conn, error) {
-	if dest.Network == net.Network_UDP && !hasBindAddr(sockopt) {
+	if dest.Network == net.Network_UDP && !sockopt.HasBindAddr() {
 		srcAddr := resolveSrcAddr(net.Network_UDP, src)
 		var destAddr *net.UDPAddr
 		addressFamily := dest.Address.Family()
+		var bindInterfaceIp4, bindInterfaceIp6 []byte
+
+		if sockopt.HasBindInterface() {
+			bindInterfaceIp4 = sockopt.BindInterfaceIp4
+			bindInterfaceIp6 = sockopt.BindInterfaceIp6
+		} else {
+			bindInterfaceIp4 = make([]byte, 4)
+			bindInterfaceIp6 = make([]byte, 16)
+		}
 
 		switch addressFamily {
 		case net.AddressFamilyDomain:
 			if srcAddr == nil {
 				srcAddr = &net.UDPAddr{
-					IP:   sockopt.BindInterfaceIp4,
+					IP:   bindInterfaceIp4,
 					Port: 0,
 				}
 			}
@@ -91,7 +96,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		case net.AddressFamilyIPv4:
 			if srcAddr == nil {
 				srcAddr = &net.UDPAddr{
-					IP:   sockopt.BindInterfaceIp4,
+					IP:   bindInterfaceIp4,
 					Port: 0,
 				}
 			}
@@ -103,7 +108,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		case net.AddressFamilyIPv6:
 			if srcAddr == nil {
 				srcAddr = &net.UDPAddr{
-					IP:   sockopt.BindInterfaceIp6,
+					IP:   bindInterfaceIp6,
 					Port: 0,
 				}
 			}
@@ -133,7 +138,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 					if err := applyOutboundSocketOptions(network, address, fd, sockopt, dest); err != nil {
 						newError("failed to apply socket options").Base(err).WriteToLog(session.ExportIDToError(ctx))
 					}
-					if dest.Network == net.Network_UDP && hasBindAddr(sockopt) {
+					if dest.Network == net.Network_UDP && sockopt.HasBindAddr() {
 						if err := bindAddr(fd, sockopt.BindAddress, sockopt.BindPort); err != nil {
 							newError("failed to bind source address to ", sockopt.BindAddress).Base(err).WriteToLog(session.ExportIDToError(ctx))
 						}

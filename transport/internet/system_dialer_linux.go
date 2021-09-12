@@ -8,7 +8,7 @@ import (
 )
 
 func newUdpConnWrapper(conn *net.UDPConn, src net.Address, destAddr *net.UDPAddr, addressFamily net.AddressFamily, sockopt *SocketConfig) (*udpConnWrapper, error) {
-	if sockopt.BindInterfaceIndex == 0 {
+	if !sockopt.HasBindInterface() {
 		return &udpConnWrapper{
 			conn: conn,
 			da:   destAddr,

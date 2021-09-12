@@ -412,20 +412,32 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 		if err != nil {
 			return nil, err
 		}
-		ss.SocketSettings.BindInterfaceIndex = bindInterfaceIndex
-		ss.SocketSettings.BindInterfaceName = bindInterfaceName
-		ss.SocketSettings.BindInterfaceIp4 = bindInterfaceIp4
-		ss.SocketSettings.BindInterfaceIp6 = bindInterfaceIp6
 		senderSettings.StreamSettings = ss
-	} else {
-		senderSettings.StreamSettings = &internet.StreamConfig{
-			ProtocolName: "tcp",
-			SocketSettings: &internet.SocketConfig{
+	}
+
+	if bindInterfaceIndex != 0 {
+		if senderSettings.StreamSettings == nil {
+			senderSettings.StreamSettings = &internet.StreamConfig{
+				ProtocolName: "tcp",
+				SocketSettings: &internet.SocketConfig{
+					BindInterfaceIndex: bindInterfaceIndex,
+					BindInterfaceName:  bindInterfaceName,
+					BindInterfaceIp4:   bindInterfaceIp4,
+					BindInterfaceIp6:   bindInterfaceIp6,
+				},
+			}
+		} else if senderSettings.StreamSettings.SocketSettings == nil {
+			senderSettings.StreamSettings.SocketSettings = &internet.SocketConfig{
 				BindInterfaceIndex: bindInterfaceIndex,
 				BindInterfaceName:  bindInterfaceName,
 				BindInterfaceIp4:   bindInterfaceIp4,
 				BindInterfaceIp6:   bindInterfaceIp6,
-			},
+			}
+		} else {
+			senderSettings.StreamSettings.SocketSettings.BindInterfaceIndex = bindInterfaceIndex
+			senderSettings.StreamSettings.SocketSettings.BindInterfaceName = bindInterfaceName
+			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp4 = bindInterfaceIp4
+			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp6 = bindInterfaceIp6
 		}
 	}
 

@@ -122,3 +122,11 @@ func (c *ProxyConfig) HasTag() bool {
 func (m SocketConfig_TProxyMode) IsEnabled() bool {
 	return m != SocketConfig_Off
 }
+
+func (sockopt *SocketConfig) HasBindAddr() bool {
+	return sockopt != nil && len(sockopt.BindAddress) > 0 && sockopt.BindPort > 0
+}
+
+func (sockopt *SocketConfig) HasBindInterface() bool {
+	return sockopt != nil && sockopt.BindInterfaceIndex != 0
+}
