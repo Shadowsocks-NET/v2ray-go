@@ -45,15 +45,11 @@ func applyOutboundSocketOptions(network string, address string, fd uintptr, conf
 		}
 	}
 
-	if config.HasBindInterface() {
-		switch network {
-		case "tcp4", "tcp6":
-			if err := unix.BindToDevice(int(fd), config.BindInterfaceName); err != nil {
-				return newError("failed to bind to device ", config.BindInterfaceName).Base(err)
-			}
-
-			newError("successfully set SO_BINDTODEVICE to ", dest, " on ifindex ", config.BindInterfaceIndex).AtInfo().WriteToLog()
+	if config.HasBindInterface() && (!config.LinuxBindInterfaceUdpUsePktinfo || network == "tcp4" || network == "tcp6") {
+		if err := unix.BindToDevice(int(fd), config.BindInterfaceName); err != nil {
+			return newError("failed to bind to device ", config.BindInterfaceName).Base(err)
 		}
+		newError("successfully set SO_BINDTODEVICE to ", dest, " on ifindex ", config.BindInterfaceIndex).AtInfo().WriteToLog()
 	}
 
 	return nil
@@ -96,6 +92,13 @@ func applyInboundSocketOptions(network string, fd uintptr, config *SocketConfig)
 		if err1 != nil && err2 != nil {
 			return err1
 		}
+	}
+
+	if config.HasBindInterface() && (!config.LinuxBindInterfaceUdpUsePktinfo || network == "tcp4" || network == "tcp6") {
+		if err := unix.BindToDevice(int(fd), config.BindInterfaceName); err != nil {
+			return newError("failed to bind to device ", config.BindInterfaceName).Base(err)
+		}
+		newError("successfully set SO_BINDTODEVICE to UDP socket on ifindex ", config.BindInterfaceIndex).AtInfo().WriteToLog()
 	}
 
 	return nil

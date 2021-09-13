@@ -11,3 +11,9 @@ func newUDPConnWrapper(conn *net.UDPConn, destAddr *net.UDPAddr, addressFamily n
 		da:   destAddr,
 	}, nil
 }
+
+func (sockopt *SocketConfig) getBindInterfaceIP46() (bindInterfaceIP4, bindInterfaceIP6 []byte) {
+	bindInterfaceIP4 = make([]byte, 4)
+	bindInterfaceIP6 = make([]byte, 16)
+	return
+}

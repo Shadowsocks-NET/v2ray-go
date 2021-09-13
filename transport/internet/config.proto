@@ -94,6 +94,8 @@ message SocketConfig {
 
   bytes bind_interface_ip6 = 12;
 
+  bool linux_bind_interface_udp_use_pktinfo = 13;
+
   bytes bind_address = 5;
 
   uint32 bind_port = 6;

@@ -267,6 +267,11 @@ type OutboundDetourConfig struct {
 	// When an interface is specified, the address is a domain.
 	Bind6 *cfgcommon.Address `json:"bind6"`
 
+	// LinuxBindInterfaceUDPUsePktinfo controls when binding a UDP socket to an interface,
+	// whether the IP(V6)_PKTINFO socket control message should be used instead of
+	// the SO_BINDTODEVICE socket option.
+	LinuxBindInterfaceUDPUsePktinfo bool `json:"linuxBindInterfaceUDPUsePktinfo"`
+
 	// DomainStrategy controls how domain dial targets are processed.
 	DomainStrategy string `json:"domainStrategy"`
 
@@ -296,40 +301,45 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 			return nil, err
 		}
 
+		// These platforms have syscalls that can bind to a specific interface.
 		if runtime.GOOS == "linux" || runtime.GOOS == "darwin" || runtime.GOOS == "windows" {
 			bindInterfaceIndex = uint32(iface.Index)
 			bindInterfaceName = iface.Name
 			newError("Outbound ", c.Tag, " bound to interface index ", bindInterfaceIndex, " name ", bindInterfaceName).AtInfo().WriteToLog()
 		}
-		addrs, err := iface.Addrs()
-		if err != nil {
-			return nil, err
-		}
 
-		newError(c.BindInterface, " has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+		// On other platforms, or Linux with PKTINFO, retrieve interface IP addresses.
+		if (c.LinuxBindInterfaceUDPUsePktinfo || runtime.GOOS != "linux") && runtime.GOOS != "darwin" && runtime.GOOS != "windows" {
+			addrs, err := iface.Addrs()
+			if err != nil {
+				return nil, err
+			}
 
-		for _, addr := range addrs {
-			vaddr := net.ParseAddress(addr.String())
-			newError("Processing ", vaddr, " family ", vaddr.Family()).AtDebug().WriteToLog()
-			if c.Bind4 == nil && vaddr.Family().IsIPv4() {
-				c.Bind4 = &cfgcommon.Address{
-					Address: vaddr,
+			newError(c.BindInterface, " has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+
+			for _, addr := range addrs {
+				vaddr := net.ParseAddress(addr.String())
+				newError("Processing ", vaddr, " family ", vaddr.Family()).AtDebug().WriteToLog()
+				if c.Bind4 == nil && vaddr.Family().IsIPv4() {
+					c.Bind4 = &cfgcommon.Address{
+						Address: vaddr,
+					}
+					bindInterfaceIP4 = vaddr.IP()
+					newError("IPv4 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
+				} else if c.Bind6 == nil && vaddr.Family().IsIPv6() {
+					c.Bind6 = &cfgcommon.Address{
+						Address: vaddr,
+					}
+					bindInterfaceIP6 = vaddr.IP()
+					newError("IPv6 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
+				} else {
+					newError("Skipping IP ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
 				}
-				bindInterfaceIP4 = vaddr.IP()
-				newError("IPv4 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
-			} else if c.Bind6 == nil && vaddr.Family().IsIPv6() {
-				c.Bind6 = &cfgcommon.Address{
-					Address: vaddr,
-				}
-				bindInterfaceIP6 = vaddr.IP()
-				newError("IPv6 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
-			} else {
-				newError("Skipping IP ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
 			}
 		}
 	}
 
-	if c.Bind4 != nil && bindInterfaceIndex == 0 {
+	if c.Bind4 != nil {
 		if c.Bind4.Family().IsIPv4() {
 			senderSettings.Via4 = c.Bind4.Build()
 		} else if c.Bind4.Family().IsDomain() {
@@ -347,10 +357,9 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 
 			for _, addr := range addrs {
 				vaddr := net.ParseAddress(addr.String())
+				newError("Processing ", vaddr, " family ", vaddr.Family()).AtDebug().WriteToLog()
 				if vaddr.Family().IsIPv4() {
-					c.Bind4 = &cfgcommon.Address{
-						Address: vaddr,
-					}
+					senderSettings.Via4 = net.NewIPOrDomain(vaddr)
 					newError("IPv4 local address set to ", vaddr).AtInfo().WriteToLog()
 					break
 				} else {
@@ -362,7 +371,7 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 		}
 	}
 
-	if c.Bind6 != nil && bindInterfaceIndex == 0 {
+	if c.Bind6 != nil {
 		if c.Bind6.Family().IsIPv6() {
 			senderSettings.Via6 = c.Bind6.Build()
 		} else if c.Bind6.Family().IsDomain() {
@@ -380,10 +389,9 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 
 			for _, addr := range addrs {
 				vaddr := net.ParseAddress(addr.String())
+				newError("Processing ", vaddr, " family ", vaddr.Family()).AtDebug().WriteToLog()
 				if vaddr.Family().IsIPv6() {
-					c.Bind6 = &cfgcommon.Address{
-						Address: vaddr,
-					}
+					senderSettings.Via6 = net.NewIPOrDomain(vaddr)
 					newError("IPv6 local address set to ", vaddr).AtInfo().WriteToLog()
 					break
 				} else {
@@ -421,24 +429,27 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 			senderSettings.StreamSettings = &internet.StreamConfig{
 				ProtocolName: "tcp",
 				SocketSettings: &internet.SocketConfig{
-					BindInterfaceIndex: bindInterfaceIndex,
-					BindInterfaceName:  bindInterfaceName,
-					BindInterfaceIp4:   bindInterfaceIP4,
-					BindInterfaceIp6:   bindInterfaceIP6,
+					BindInterfaceIndex:              bindInterfaceIndex,
+					BindInterfaceName:               bindInterfaceName,
+					BindInterfaceIp4:                bindInterfaceIP4,
+					BindInterfaceIp6:                bindInterfaceIP6,
+					LinuxBindInterfaceUdpUsePktinfo: c.LinuxBindInterfaceUDPUsePktinfo,
 				},
 			}
 		} else if senderSettings.StreamSettings.SocketSettings == nil {
 			senderSettings.StreamSettings.SocketSettings = &internet.SocketConfig{
-				BindInterfaceIndex: bindInterfaceIndex,
-				BindInterfaceName:  bindInterfaceName,
-				BindInterfaceIp4:   bindInterfaceIP4,
-				BindInterfaceIp6:   bindInterfaceIP6,
+				BindInterfaceIndex:              bindInterfaceIndex,
+				BindInterfaceName:               bindInterfaceName,
+				BindInterfaceIp4:                bindInterfaceIP4,
+				BindInterfaceIp6:                bindInterfaceIP6,
+				LinuxBindInterfaceUdpUsePktinfo: c.LinuxBindInterfaceUDPUsePktinfo,
 			}
 		} else {
 			senderSettings.StreamSettings.SocketSettings.BindInterfaceIndex = bindInterfaceIndex
 			senderSettings.StreamSettings.SocketSettings.BindInterfaceName = bindInterfaceName
 			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp4 = bindInterfaceIP4
 			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp6 = bindInterfaceIP6
+			senderSettings.StreamSettings.SocketSettings.LinuxBindInterfaceUdpUsePktinfo = c.LinuxBindInterfaceUDPUsePktinfo
 		}
 	}
 

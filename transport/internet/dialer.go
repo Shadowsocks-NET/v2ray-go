@@ -86,6 +86,8 @@ func DialSystem(ctx context.Context, dest net.Destination, sockopt *SocketConfig
 	effectiveSystemDialer.SetFallbackDelay(fallbackDelay)
 	newError("Set fallback delay to ", fallbackDelay).AtDebug().WriteToLog()
 
+	// If the outbound is bound to an interface, we have to make sure the destination address
+	// is resolved to an IP. The AsIs domain strategy is overridden by BindInterfaceIndex.
 	if domainStrategy == 0 && la4 == nil && la6 == nil && !sockopt.HasBindInterface() {
 		return effectiveSystemDialer.Dial(ctx, nil, dest, sockopt)
 	}

@@ -64,15 +64,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		srcAddr := resolveSrcAddr(net.Network_UDP, src)
 		var destAddr *net.UDPAddr
 		addressFamily := dest.Address.Family()
-		var bindInterfaceIP4, bindInterfaceIP6 []byte
-
-		if sockopt.HasBindInterface() {
-			bindInterfaceIP4 = sockopt.BindInterfaceIp4
-			bindInterfaceIP6 = sockopt.BindInterfaceIp6
-		} else {
-			bindInterfaceIP4 = make([]byte, 4)
-			bindInterfaceIP6 = make([]byte, 16)
-		}
+		bindInterfaceIP4, bindInterfaceIP6 := sockopt.getBindInterfaceIP46()
 
 		switch addressFamily {
 		case net.AddressFamilyDomain:

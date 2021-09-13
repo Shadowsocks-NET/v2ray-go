@@ -9,7 +9,7 @@ import (
 )
 
 func newUDPConnWrapper(conn *net.UDPConn, destAddr *net.UDPAddr, addressFamily net.AddressFamily, sockopt *SocketConfig) (*udpConnWrapper, error) {
-	if !sockopt.HasBindInterface() {
+	if !sockopt.HasBindInterface() || !sockopt.LinuxBindInterfaceUdpUsePktinfo {
 		return &udpConnWrapper{
 			conn: conn,
 			da:   destAddr,
@@ -56,4 +56,15 @@ func newUDPConnWrapper(conn *net.UDPConn, destAddr *net.UDPAddr, addressFamily n
 		oob:  b,
 		da:   destAddr,
 	}, nil
+}
+
+func (sockopt *SocketConfig) getBindInterfaceIP46() (bindInterfaceIP4, bindInterfaceIP6 []byte) {
+	if sockopt.HasBindInterface() && sockopt.LinuxBindInterfaceUdpUsePktinfo {
+		bindInterfaceIP4 = sockopt.BindInterfaceIp4
+		bindInterfaceIP6 = sockopt.BindInterfaceIp6
+	} else {
+		bindInterfaceIP4 = make([]byte, 4)
+		bindInterfaceIP6 = make([]byte, 16)
+	}
+	return
 }
