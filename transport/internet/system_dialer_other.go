@@ -5,7 +5,7 @@ package internet
 
 import "github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 
-func newUdpConnWrapper(conn *net.UDPConn, src net.Address, destAddr *net.UDPAddr, addressFamily net.AddressFamily, sockopt *SocketConfig) (*udpConnWrapper, error) {
+func newUDPConnWrapper(conn *net.UDPConn, destAddr *net.UDPAddr, addressFamily net.AddressFamily, sockopt *SocketConfig) (*udpConnWrapper, error) {
 	return &udpConnWrapper{
 		conn: conn,
 		da:   destAddr,

@@ -343,7 +343,7 @@ func (s *Instance) Start() error {
 	}
 
 	if dnsClient := s.GetFeature(dns.ClientType()); dnsClient != nil {
-		internet.DialerDnsClient = dnsClient.(dns.Client)
+		internet.DialerDNSClient = dnsClient.(dns.Client)
 	} else {
 		return newError("failed to assign dns.Client to internet.dialer")
 	}

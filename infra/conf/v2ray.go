@@ -281,13 +281,14 @@ type OutboundDetourConfig struct {
 }
 
 // Build implements Buildable.
+//nolint: gocritic
 func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 	senderSettings := &proxyman.SenderConfig{}
 
 	var bindInterfaceIndex uint32
 	var bindInterfaceName string
-	var bindInterfaceIp4 []byte
-	var bindInterfaceIp6 []byte
+	var bindInterfaceIP4 []byte
+	var bindInterfaceIP6 []byte
 
 	if c.BindInterface != "" {
 		iface, err := gonet.InterfaceByName(c.BindInterface)
@@ -314,13 +315,13 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 				c.Bind4 = &cfgcommon.Address{
 					Address: vaddr,
 				}
-				bindInterfaceIp4 = vaddr.IP()
+				bindInterfaceIP4 = vaddr.IP()
 				newError("IPv4 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
 			} else if c.Bind6 == nil && vaddr.Family().IsIPv6() {
 				c.Bind6 = &cfgcommon.Address{
 					Address: vaddr,
 				}
-				bindInterfaceIp6 = vaddr.IP()
+				bindInterfaceIP6 = vaddr.IP()
 				newError("IPv6 local address set to ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
 			} else {
 				newError("Skipping IP ", vaddr, " from ", c.BindInterface).AtInfo().WriteToLog()
@@ -342,7 +343,7 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 				return nil, err
 			}
 
-			newError(c.Bind4, "has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+			newError(c.Bind4, " has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
 
 			for _, addr := range addrs {
 				vaddr := net.ParseAddress(addr.String())
@@ -375,7 +376,7 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 				return nil, err
 			}
 
-			newError(c.Bind6, "has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
+			newError(c.Bind6, " has ", len(addrs), " IP address(es)").AtInfo().WriteToLog()
 
 			for _, addr := range addrs {
 				vaddr := net.ParseAddress(addr.String())
@@ -422,22 +423,22 @@ func (c *OutboundDetourConfig) Build() (*core.OutboundHandlerConfig, error) {
 				SocketSettings: &internet.SocketConfig{
 					BindInterfaceIndex: bindInterfaceIndex,
 					BindInterfaceName:  bindInterfaceName,
-					BindInterfaceIp4:   bindInterfaceIp4,
-					BindInterfaceIp6:   bindInterfaceIp6,
+					BindInterfaceIp4:   bindInterfaceIP4,
+					BindInterfaceIp6:   bindInterfaceIP6,
 				},
 			}
 		} else if senderSettings.StreamSettings.SocketSettings == nil {
 			senderSettings.StreamSettings.SocketSettings = &internet.SocketConfig{
 				BindInterfaceIndex: bindInterfaceIndex,
 				BindInterfaceName:  bindInterfaceName,
-				BindInterfaceIp4:   bindInterfaceIp4,
-				BindInterfaceIp6:   bindInterfaceIp6,
+				BindInterfaceIp4:   bindInterfaceIP4,
+				BindInterfaceIp6:   bindInterfaceIP6,
 			}
 		} else {
 			senderSettings.StreamSettings.SocketSettings.BindInterfaceIndex = bindInterfaceIndex
 			senderSettings.StreamSettings.SocketSettings.BindInterfaceName = bindInterfaceName
-			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp4 = bindInterfaceIp4
-			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp6 = bindInterfaceIp6
+			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp4 = bindInterfaceIP4
+			senderSettings.StreamSettings.SocketSettings.BindInterfaceIp6 = bindInterfaceIP6
 		}
 	}
 

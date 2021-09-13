@@ -3,11 +3,12 @@ package internet
 import (
 	"unsafe"
 
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"golang.org/x/sys/unix"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 )
 
-func newUdpConnWrapper(conn *net.UDPConn, src net.Address, destAddr *net.UDPAddr, addressFamily net.AddressFamily, sockopt *SocketConfig) (*udpConnWrapper, error) {
+func newUDPConnWrapper(conn *net.UDPConn, destAddr *net.UDPAddr, addressFamily net.AddressFamily, sockopt *SocketConfig) (*udpConnWrapper, error) {
 	if !sockopt.HasBindInterface() {
 		return &udpConnWrapper{
 			conn: conn,
@@ -19,7 +20,7 @@ func newUdpConnWrapper(conn *net.UDPConn, src net.Address, destAddr *net.UDPAddr
 
 	switch addressFamily {
 	case net.AddressFamilyIPv4:
-		ip4 := (*[4]byte)([]byte(sockopt.BindInterfaceIp4))
+		ip4 := (*[4]byte)(sockopt.BindInterfaceIp4)
 		pktinfo := &unix.Inet4Pktinfo{
 			Ifindex:  int32(sockopt.BindInterfaceIndex),
 			Spec_dst: *ip4,
@@ -33,7 +34,7 @@ func newUdpConnWrapper(conn *net.UDPConn, src net.Address, destAddr *net.UDPAddr
 		*(*unix.Inet4Pktinfo)(unsafe.Pointer(uintptr(unsafe.Pointer(h)) + uintptr(unix.SizeofCmsghdr))) = *pktinfo
 
 	case net.AddressFamilyIPv6:
-		ip6 := (*[16]byte)([]byte(sockopt.BindInterfaceIp6))
+		ip6 := (*[16]byte)(sockopt.BindInterfaceIp6)
 		pktinfo := &unix.Inet6Pktinfo{
 			Addr:    *ip6,
 			Ifindex: sockopt.BindInterfaceIndex,

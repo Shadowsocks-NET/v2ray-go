@@ -64,21 +64,21 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		srcAddr := resolveSrcAddr(net.Network_UDP, src)
 		var destAddr *net.UDPAddr
 		addressFamily := dest.Address.Family()
-		var bindInterfaceIp4, bindInterfaceIp6 []byte
+		var bindInterfaceIP4, bindInterfaceIP6 []byte
 
 		if sockopt.HasBindInterface() {
-			bindInterfaceIp4 = sockopt.BindInterfaceIp4
-			bindInterfaceIp6 = sockopt.BindInterfaceIp6
+			bindInterfaceIP4 = sockopt.BindInterfaceIp4
+			bindInterfaceIP6 = sockopt.BindInterfaceIp6
 		} else {
-			bindInterfaceIp4 = make([]byte, 4)
-			bindInterfaceIp6 = make([]byte, 16)
+			bindInterfaceIP4 = make([]byte, 4)
+			bindInterfaceIP6 = make([]byte, 16)
 		}
 
 		switch addressFamily {
 		case net.AddressFamilyDomain:
 			if srcAddr == nil {
 				srcAddr = &net.UDPAddr{
-					IP:   bindInterfaceIp4,
+					IP:   bindInterfaceIP4,
 					Port: 0,
 				}
 			}
@@ -96,7 +96,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		case net.AddressFamilyIPv4:
 			if srcAddr == nil {
 				srcAddr = &net.UDPAddr{
-					IP:   bindInterfaceIp4,
+					IP:   bindInterfaceIP4,
 					Port: 0,
 				}
 			}
@@ -108,7 +108,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 		case net.AddressFamilyIPv6:
 			if srcAddr == nil {
 				srcAddr = &net.UDPAddr{
-					IP:   bindInterfaceIp6,
+					IP:   bindInterfaceIP6,
 					Port: 0,
 				}
 			}
@@ -123,7 +123,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 			return nil, err
 		}
 
-		return newUdpConnWrapper(packetConn.(*net.UDPConn), src, destAddr, addressFamily, sockopt)
+		return newUDPConnWrapper(packetConn.(*net.UDPConn), destAddr, addressFamily, sockopt)
 	}
 
 	dialer := &net.Dialer{
@@ -157,6 +157,7 @@ func (d *DefaultSystemDialer) Dial(ctx context.Context, src net.Address, dest ne
 	return dialer.DialContext(ctx, dest.Network.SystemString(), dest.NetAddr())
 }
 
+//nolint: gocritic
 func (d *DefaultSystemDialer) DialIPs(ctx context.Context, src4 net.Address, dests4 []net.Destination, src6 net.Address, dests6 []net.Destination, sockopt *SocketConfig) (net.Conn, error) {
 	if ctx == nil {
 		panic("nil context")
@@ -330,6 +331,7 @@ func partialDeadline(now, deadline time.Time, addrsRemaining int) (time.Time, er
 }
 
 // fallbackDelay gets the fallback delay in effect.
+//nolint: golint
 func (d *DefaultSystemDialer) fallbackDelay() time.Duration {
 	if d.FallbackDelay > 0 {
 		return d.FallbackDelay
@@ -402,6 +404,7 @@ func (v *SimpleSystemDialer) Dial(ctx context.Context, src net.Address, dest net
 	return v.adapter.Dial(dest.Network.SystemString(), dest.NetAddr())
 }
 
+//nolint: gocritic
 func (v *SimpleSystemDialer) DialIPs(ctx context.Context, src4 net.Address, dests4 []net.Destination, src6 net.Address, dests6 []net.Destination, sockopt *SocketConfig) (net.Conn, error) {
 	if len(dests6) > 0 {
 		dest := dests6[0]

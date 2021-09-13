@@ -24,7 +24,7 @@ type dialFunc func(ctx context.Context, dest net.Destination, streamSettings *Me
 
 var (
 	transportDialerCache = make(map[string]dialFunc)
-	DialerDnsClient      dns.Client
+	DialerDNSClient      dns.Client //nolint: golint,stylecheck
 )
 
 // RegisterTransportDialer registers a Dialer with given name.
@@ -121,7 +121,7 @@ func DialTaggedOutbound(ctx context.Context, dest net.Destination, tag string) (
 
 func resolveIP(ctx context.Context, domainStrategy int32, address net.Address) (ips4, ips6 []net.IP) {
 	newError("resolveIP processing ", address).AtDebug().WriteToLog()
-	if DialerDnsClient == nil {
+	if DialerDNSClient == nil {
 		newError("DNS client is nil").AtError().WriteToLog()
 		return
 	}
@@ -139,7 +139,7 @@ func resolveIP(ctx context.Context, domainStrategy int32, address net.Address) (
 
 	domain := address.Domain()
 
-	if c, ok := DialerDnsClient.(dns.ClientWithIPOption); ok {
+	if c, ok := DialerDNSClient.(dns.ClientWithIPOption); ok {
 		c.SetFakeDNSOption(false) // Skip FakeDNS
 	} else {
 		newError("DNS client doesn't implement ClientWithIPOption")
@@ -149,7 +149,7 @@ func resolveIP(ctx context.Context, domainStrategy int32, address net.Address) (
 	switch domainStrategy {
 	case 0, 1:
 		var ips []net.IP
-		ips, err = DialerDnsClient.LookupIP(domain)
+		ips, err = DialerDNSClient.LookupIP(domain)
 		for _, ip := range ips {
 			if ip.To4() == nil {
 				ips6 = append(ips6, ip)
@@ -158,14 +158,14 @@ func resolveIP(ctx context.Context, domainStrategy int32, address net.Address) (
 			}
 		}
 	case 2:
-		ips4, err = DialerDnsClient.(dns.IPv4Lookup).LookupIPv4(domain)
+		ips4, err = DialerDNSClient.(dns.IPv4Lookup).LookupIPv4(domain)
 	case 3:
-		ips6, err = DialerDnsClient.(dns.IPv6Lookup).LookupIPv6(domain)
+		ips6, err = DialerDNSClient.(dns.IPv6Lookup).LookupIPv6(domain)
 	}
 
 	if err != nil {
 		newError("failed to get IP address for domain ", domain).Base(err).WriteToLog(session.ExportIDToError(ctx))
 	}
 
-	return
+	return //nolint: nakedret
 }
