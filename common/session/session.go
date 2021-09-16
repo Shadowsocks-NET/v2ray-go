@@ -50,6 +50,9 @@ type Outbound struct {
 	// Target address of the outbound connection.
 	Target net.Destination
 
+	// Target address for routing
+	RouteTarget net.Destination
+
 	// IPv4 local address
 	Bind4 net.Address
 
@@ -65,6 +68,7 @@ type SniffingRequest struct {
 	OverrideDestinationForProtocol []string
 	Enabled                        bool
 	MetadataOnly                   bool
+	RouteOnly                      bool
 }
 
 // Content is the metadata of the connection content.
