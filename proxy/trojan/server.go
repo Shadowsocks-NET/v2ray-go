@@ -5,7 +5,6 @@ package trojan
 
 import (
 	"context"
-	"crypto/tls"
 	"io"
 	"strconv"
 	"time"
@@ -25,6 +24,7 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/policy"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/udp"
 )
 
