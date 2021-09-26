@@ -70,6 +70,8 @@ message SocketConfig {
   // TFO is the state of TFO settings.
   TCPFastOpenState tfo = 2;
 
+  uint32 tfo_queue_length = 14;
+
   enum TProxyMode {
     // TProxy is off.
     Off = 0;

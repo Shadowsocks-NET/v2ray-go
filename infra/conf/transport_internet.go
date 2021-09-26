@@ -386,6 +386,7 @@ func (p TransportProtocol) Build() (string, error) {
 type SocketConfig struct {
 	Mark                 uint32 `json:"mark"`
 	TFO                  *bool  `json:"tcpFastOpen"`
+	TFOQueueLength       uint32 `json:"tcpFastOpenQueueLength"`
 	TProxy               string `json:"tproxy"`
 	AcceptProxyProtocol  bool   `json:"acceptProxyProtocol"`
 	TCPKeepAliveInterval int32  `json:"tcpKeepAliveInterval"`
@@ -401,6 +402,12 @@ func (c *SocketConfig) Build() (*internet.SocketConfig, error) {
 			tfoSettings = internet.SocketConfig_Disable
 		}
 	}
+
+	tfoQueueLength := c.TFOQueueLength
+	if tfoQueueLength == 0 {
+		tfoQueueLength = 4096
+	}
+
 	var tproxy internet.SocketConfig_TProxyMode
 	switch strings.ToLower(c.TProxy) {
 	case "tproxy":
@@ -414,6 +421,7 @@ func (c *SocketConfig) Build() (*internet.SocketConfig, error) {
 	return &internet.SocketConfig{
 		Mark:                 c.Mark,
 		Tfo:                  tfoSettings,
+		TfoQueueLength:       tfoQueueLength,
 		Tproxy:               tproxy,
 		AcceptProxyProtocol:  c.AcceptProxyProtocol,
 		TcpKeepAliveInterval: c.TCPKeepAliveInterval,
