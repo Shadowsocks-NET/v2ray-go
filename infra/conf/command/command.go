@@ -5,10 +5,11 @@ package command
 import (
 	"os"
 
+	"google.golang.org/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/serial"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/control"
-	"google.golang.org/protobuf/proto"
 )
 
 type ConfigCommand struct{}

@@ -8,10 +8,11 @@ import (
 	"crypto/cipher"
 	"crypto/sha256"
 
+	"golang.org/x/crypto/chacha20poly1305"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
-	"golang.org/x/crypto/chacha20poly1305"
 )
 
 func getAuth(config *Config) (cipher.AEAD, error) {

@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"strings"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
@@ -18,7 +20,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tcp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/websocket"
-	"github.com/golang/protobuf/proto"
 )
 
 var (

@@ -5,12 +5,13 @@ import (
 	"os"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func TestStringListUnmarshalError(t *testing.T) {

@@ -4,11 +4,12 @@ import (
 	"context"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/stats"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/stats/command"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func TestGetStats(t *testing.T) {

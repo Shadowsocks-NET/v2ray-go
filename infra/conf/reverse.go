@@ -1,8 +1,9 @@
 package conf
 
 import (
-	"github.com/Shadowsocks-NET/v2ray-go/v4/app/reverse"
 	"github.com/golang/protobuf/proto"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/reverse"
 )
 
 type BridgeConfig struct {

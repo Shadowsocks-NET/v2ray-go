@@ -8,11 +8,12 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/net/dns/dnsmessage"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
-	"golang.org/x/net/dns/dnsmessage"
 )
 
 // Fqdn normalize domain make sure it ends with '.'

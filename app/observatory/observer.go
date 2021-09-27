@@ -12,6 +12,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/golang/protobuf/proto"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	v2net "github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
@@ -21,7 +23,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/extension"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tagged"
-	"github.com/golang/protobuf/proto"
 )
 
 type Observer struct {

@@ -12,6 +12,8 @@ import (
 	"net/url"
 	"sync"
 
+	"golang.org/x/net/http2"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
@@ -26,7 +28,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"golang.org/x/net/http2"
 )
 
 type Client struct {

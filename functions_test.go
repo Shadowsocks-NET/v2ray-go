@@ -7,6 +7,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
+	"google.golang.org/protobuf/proto"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dispatcher"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
@@ -16,8 +19,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/freedom"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/udp"
-	"github.com/google/go-cmp/cmp"
-	"google.golang.org/protobuf/proto"
 )
 
 func xor(b []byte) []byte {

@@ -4,10 +4,11 @@ import (
 	"crypto/rand"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/shadowsocks"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestAEADCipherUDP(t *testing.T) {

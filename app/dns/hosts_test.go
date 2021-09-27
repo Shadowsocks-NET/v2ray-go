@@ -3,11 +3,12 @@ package dns_test
 import (
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestStaticHosts(t *testing.T) {

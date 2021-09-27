@@ -6,8 +6,9 @@ package udp
 import (
 	"syscall"
 
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"golang.org/x/sys/unix"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 )
 
 func RetrieveOriginalDest(oob []byte) net.Destination {

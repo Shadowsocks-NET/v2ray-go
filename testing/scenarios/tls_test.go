@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/sync/errgroup"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
@@ -25,7 +27,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/http"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/websocket"
-	"golang.org/x/sync/errgroup"
 )
 
 func TestSimpleTLSConnection(t *testing.T) {

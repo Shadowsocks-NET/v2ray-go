@@ -10,6 +10,10 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/lucas-clemente/quic-go"
+	"golang.org/x/net/dns/dnsmessage"
+	"golang.org/x/net/http2"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
@@ -19,9 +23,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
 	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"github.com/lucas-clemente/quic-go"
-	"golang.org/x/net/dns/dnsmessage"
-	"golang.org/x/net/http2"
 )
 
 // NextProtoDQ - During connection establishment, DNS/QUIC support is indicated

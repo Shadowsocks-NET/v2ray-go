@@ -9,6 +9,11 @@ import (
 	"sync"
 	"time"
 
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/backoff"
+	"google.golang.org/grpc/connectivity"
+	"google.golang.org/grpc/credentials"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
@@ -16,10 +21,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/grpc/encoding"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/backoff"
-	"google.golang.org/grpc/connectivity"
-	"google.golang.org/grpc/credentials"
 )
 
 func Dial(ctx context.Context, dest net.Destination, streamSettings *internet.MemoryStreamConfig) (internet.Connection, error) {

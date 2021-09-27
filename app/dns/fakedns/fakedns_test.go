@@ -4,10 +4,11 @@ import (
 	gonet "net"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/uuid"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNewFakeDnsHolder(_ *testing.T) {

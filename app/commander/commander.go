@@ -10,11 +10,12 @@ import (
 	"net"
 	"sync"
 
+	"google.golang.org/grpc"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal/done"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
-	"google.golang.org/grpc"
 )
 
 // Commander is a V2Ray feature that provides gRPC methods to external clients.

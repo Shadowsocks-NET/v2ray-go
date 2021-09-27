@@ -10,12 +10,13 @@ import (
 	"runtime"
 	"time"
 
+	grpc "google.golang.org/grpc"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/stats"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/strmatcher"
 	feature_stats "github.com/Shadowsocks-NET/v2ray-go/v4/features/stats"
-	grpc "google.golang.org/grpc"
 )
 
 // statsServer is an implementation of StatsService.

@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
@@ -16,7 +18,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/quic"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tcp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/websocket"
-	"github.com/golang/protobuf/proto"
 )
 
 func TestSocketConfig(t *testing.T) {

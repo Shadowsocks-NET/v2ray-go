@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/sync/errgroup"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
@@ -27,7 +29,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wechat"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/quic"
 	tcptransport "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tcp"
-	"golang.org/x/sync/errgroup"
 )
 
 func TestHTTPConnectionHeader(t *testing.T) {

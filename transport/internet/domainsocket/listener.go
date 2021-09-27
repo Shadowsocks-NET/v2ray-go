@@ -9,11 +9,12 @@ import (
 	"os"
 	"strings"
 
+	"golang.org/x/sys/unix"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"golang.org/x/sys/unix"
 )
 
 type Listener struct {

@@ -1,9 +1,10 @@
 package conf
 
 import (
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/observatory"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon/duration"
-	"github.com/golang/protobuf/proto"
 )
 
 type ObservatoryConfig struct {

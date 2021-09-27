@@ -8,11 +8,12 @@ import (
 	context "context"
 	reflect "reflect"
 
+	gomock "github.com/golang/mock/gomock"
+
 	net "github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	routing "github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	transport "github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 	internet "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
-	gomock "github.com/golang/mock/gomock"
 )
 
 // ProxyInbound is a mock of Inbound interface.

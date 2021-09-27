@@ -10,6 +10,9 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	http_proto "github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/http"
@@ -18,8 +21,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal/done"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
 )
 
 type Listener struct {

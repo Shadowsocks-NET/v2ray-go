@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/sync/errgroup"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
@@ -23,7 +25,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/udp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/kcp"
-	"golang.org/x/sync/errgroup"
 )
 
 func TestVMessDynamicPort(t *testing.T) {

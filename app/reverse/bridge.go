@@ -7,6 +7,8 @@ import (
 	"context"
 	"time"
 
+	"google.golang.org/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/mux"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
@@ -14,7 +16,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/pipe"
-	"google.golang.org/protobuf/proto"
 )
 
 // Bridge is a component in reverse proxy, that relays connections from Portal to local address.

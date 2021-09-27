@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
@@ -14,7 +16,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/http"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestHTTPConnection(t *testing.T) {

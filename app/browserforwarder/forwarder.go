@@ -12,13 +12,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/v2fly/BrowserBridge/handler"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/extension"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
-	"github.com/v2fly/BrowserBridge/handler"
 )
 
 //go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen
@@ -115,7 +116,6 @@ func BridgeResource(rw http.ResponseWriter, r *http.Request, path string) {
 
 	platformFileName := filepath.FromSlash("browserforwarder/" + content)
 	data, err := filesystem.ReadFile(platform.GetAssetLocation(platformFileName))
-
 	if err != nil {
 		err = newError("cannot load necessary resources").Base(err)
 		http.Error(rw, err.Error(), http.StatusForbidden)

@@ -3,11 +3,12 @@ package conf
 import (
 	"strings"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/shadowsocks"
-	"github.com/golang/protobuf/proto"
 )
 
 func cipherFromString(c string) shadowsocks.CipherType {

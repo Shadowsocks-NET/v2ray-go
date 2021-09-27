@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/golang/mock/gomock"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/mux"
@@ -13,7 +15,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/mocks"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/pipe"
-	"github.com/golang/mock/gomock"
 )
 
 func TestIncrementalPickerFailure(t *testing.T) {

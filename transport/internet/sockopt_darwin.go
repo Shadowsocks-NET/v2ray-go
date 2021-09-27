@@ -1,8 +1,9 @@
 package internet
 
 import (
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"golang.org/x/sys/unix"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 )
 
 const (

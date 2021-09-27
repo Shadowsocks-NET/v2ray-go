@@ -6,11 +6,12 @@ package command
 import (
 	"context"
 
+	"google.golang.org/grpc"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/observatory"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/extension"
-	"google.golang.org/grpc"
 )
 
 type service struct {

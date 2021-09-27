@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	xproxy "golang.org/x/net/proxy"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
@@ -16,7 +18,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/freedom"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/socks"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
-	xproxy "golang.org/x/net/proxy"
 )
 
 func TestResolveIP(t *testing.T) {

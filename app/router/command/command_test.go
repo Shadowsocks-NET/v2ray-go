@@ -5,6 +5,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/golang/mock/gomock"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/test/bufconn"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/router/command"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/stats"
@@ -12,11 +18,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/mocks"
-	"github.com/golang/mock/gomock"
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/test/bufconn"
 )
 
 func TestServiceSubscribeRoutingStats(t *testing.T) {

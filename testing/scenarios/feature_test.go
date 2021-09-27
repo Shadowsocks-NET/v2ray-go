@@ -8,6 +8,8 @@ import (
 	"testing"
 	"time"
 
+	xproxy "golang.org/x/net/proxy"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dispatcher"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
@@ -32,7 +34,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/udp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
-	xproxy "golang.org/x/net/proxy"
 )
 
 func TestPassiveConnection(t *testing.T) {

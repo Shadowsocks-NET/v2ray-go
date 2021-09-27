@@ -10,6 +10,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
@@ -20,7 +22,6 @@ import (
 	v2http "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/http"
 	v2httptest "github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/http"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestHttpConformance(t *testing.T) {

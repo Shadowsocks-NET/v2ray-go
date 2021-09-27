@@ -6,9 +6,10 @@ package commander
 import (
 	"context"
 
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 )
 
 // Service is a Commander service.

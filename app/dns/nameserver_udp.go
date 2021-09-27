@@ -10,6 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"golang.org/x/net/dns/dnsmessage"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
@@ -21,7 +23,6 @@ import (
 	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/udp"
-	"golang.org/x/net/dns/dnsmessage"
 )
 
 // ClassicNameServer implemented traditional UDP DNS.

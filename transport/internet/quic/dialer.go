@@ -8,12 +8,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/lucas-clemente/quic-go"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"github.com/lucas-clemente/quic-go"
 )
 
 type sessionContext struct {

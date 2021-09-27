@@ -3,8 +3,9 @@ package conf
 import (
 	"strings"
 
-	"github.com/Shadowsocks-NET/v2ray-go/v4/app/browserforwarder"
 	"github.com/golang/protobuf/proto"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/app/browserforwarder"
 )
 
 type BrowserForwarderConfig struct {

@@ -6,11 +6,12 @@ package router
 import (
 	"strings"
 
+	"go.starlark.net/starlark"
+	"go.starlark.net/syntax"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/strmatcher"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
-	"go.starlark.net/starlark"
-	"go.starlark.net/syntax"
 )
 
 type Condition interface {

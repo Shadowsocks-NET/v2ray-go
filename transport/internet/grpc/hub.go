@@ -6,14 +6,15 @@ package grpc
 import (
 	"context"
 
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/grpc/encoding"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 type Listener struct {

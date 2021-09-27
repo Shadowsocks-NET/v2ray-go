@@ -8,6 +8,8 @@ import (
 	"io"
 	"sync"
 
+	"golang.org/x/net/dns/dnsmessage"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
@@ -18,7 +20,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
-	"golang.org/x/net/dns/dnsmessage"
 )
 
 func init() {

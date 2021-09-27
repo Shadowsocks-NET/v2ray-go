@@ -4,6 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/sync/errgroup"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
@@ -17,7 +19,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/shadowsocks"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/udp"
-	"golang.org/x/sync/errgroup"
 )
 
 func TestShadowsocksChaCha20Poly1305TCP(t *testing.T) {

@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"github.com/golang/mock/gomock"
+
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
@@ -11,7 +13,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
 	routing_session "github.com/Shadowsocks-NET/v2ray-go/v4/features/routing/session"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/mocks"
-	"github.com/golang/mock/gomock"
 )
 
 type mockOutboundManager struct {

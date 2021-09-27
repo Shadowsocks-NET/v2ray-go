@@ -3,9 +3,10 @@ package log_test
 import (
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
-	"github.com/google/go-cmp/cmp"
 )
 
 type testLogger struct {

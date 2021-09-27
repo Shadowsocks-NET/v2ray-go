@@ -5,8 +5,9 @@ import (
 	"io"
 	"strings"
 
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
 	"google.golang.org/protobuf/encoding/protowire"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
 )
 
 var (

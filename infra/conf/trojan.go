@@ -6,12 +6,13 @@ import (
 	"strconv"
 	"syscall"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/trojan"
-	"github.com/golang/protobuf/proto"
 )
 
 // TrojanServerTarget is configuration of a single trojan server

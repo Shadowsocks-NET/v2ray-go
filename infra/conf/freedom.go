@@ -3,10 +3,11 @@ package conf
 import (
 	"net"
 
+	"github.com/golang/protobuf/proto"
+
 	v2net "github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/freedom"
-	"github.com/golang/protobuf/proto"
 )
 
 type FreedomConfig struct {

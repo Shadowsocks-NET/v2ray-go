@@ -3,6 +3,8 @@ package conf
 import (
 	"sort"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/http"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/noop"
@@ -11,7 +13,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/utp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wechat"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/headers/wireguard"
-	"github.com/golang/protobuf/proto"
 )
 
 type NoOpAuthenticator struct{}

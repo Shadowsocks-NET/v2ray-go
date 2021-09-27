@@ -5,10 +5,11 @@ import (
 	"io"
 	"testing"
 
+	"github.com/golang/mock/gomock"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/mocks"
-	"github.com/golang/mock/gomock"
 )
 
 func TestReadError(t *testing.T) {

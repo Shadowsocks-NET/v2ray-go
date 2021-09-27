@@ -8,6 +8,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/mux"
@@ -17,7 +19,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/pipe"
-	"github.com/golang/protobuf/proto"
 )
 
 type Portal struct {

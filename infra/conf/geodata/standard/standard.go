@@ -3,10 +3,11 @@ package standard
 import (
 	"strings"
 
+	"google.golang.org/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata"
-	"google.golang.org/protobuf/proto"
 )
 
 //go:generate go run github.com/Shadowsocks-NET/v2ray-go/v4/common/errors/errorgen

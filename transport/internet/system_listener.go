@@ -5,9 +5,10 @@ import (
 	"runtime"
 	"syscall"
 
+	"github.com/pires/go-proxyproto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
-	"github.com/pires/go-proxyproto"
 )
 
 var effectiveListener = DefaultListener{}

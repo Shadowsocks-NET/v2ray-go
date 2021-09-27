@@ -4,10 +4,11 @@ import (
 	"encoding/binary"
 	"sync"
 
+	"golang.org/x/net/dns/dnsmessage"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
-	"golang.org/x/net/dns/dnsmessage"
 )
 
 func PackMessage(msg *dnsmessage.Message) (*buf.Buffer, error) {

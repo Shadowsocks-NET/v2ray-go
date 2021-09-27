@@ -4,6 +4,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
+	"github.com/miekg/dns"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dispatcher"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/dns"
@@ -17,8 +20,6 @@ import (
 	feature_dns "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/freedom"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/udp"
-	"github.com/google/go-cmp/cmp"
-	"github.com/miekg/dns"
 )
 
 type staticHandler struct{}

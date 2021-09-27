@@ -5,9 +5,10 @@ import (
 	"encoding/hex"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/crypto"
-	"github.com/google/go-cmp/cmp"
 )
 
 func mustDecodeHex(s string) []byte {

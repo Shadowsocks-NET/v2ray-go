@@ -5,6 +5,9 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/golang/protobuf/proto"
+	"github.com/google/go-cmp/cmp"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dispatcher"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
@@ -25,8 +28,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/http"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/websocket"
-	"github.com/golang/protobuf/proto"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestV2RayConfig(t *testing.T) {

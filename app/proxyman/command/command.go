@@ -6,12 +6,13 @@ package command
 import (
 	"context"
 
+	grpc "google.golang.org/grpc"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/inbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy"
-	grpc "google.golang.org/grpc"
 )
 
 // InboundOperation is the interface for operations that applies to inbound handlers.

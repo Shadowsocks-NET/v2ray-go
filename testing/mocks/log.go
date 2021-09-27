@@ -7,8 +7,9 @@ package mocks
 import (
 	reflect "reflect"
 
-	log "github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
 	gomock "github.com/golang/mock/gomock"
+
+	log "github.com/Shadowsocks-NET/v2ray-go/v4/common/log"
 )
 
 // LogHandler is a mock of Handler interface.

@@ -5,6 +5,8 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/sync/errgroup"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/policy"
@@ -21,7 +23,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/inbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/outbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
-	"golang.org/x/sync/errgroup"
 )
 
 func startQuickClosingTCPServer() (net.Listener, error) {

@@ -4,6 +4,9 @@ import (
 	"testing"
 	"time"
 
+	xproxy "golang.org/x/net/proxy"
+	socks4 "h12.io/socks"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
@@ -17,8 +20,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/socks"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/udp"
-	xproxy "golang.org/x/net/proxy"
-	socks4 "h12.io/socks"
 )
 
 func TestSocksBridgeTCP(t *testing.T) {

@@ -1,10 +1,11 @@
 package conf
 
 import (
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/cfgcommon"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/dns"
-	"github.com/golang/protobuf/proto"
 )
 
 type DNSOutboundConfig struct {

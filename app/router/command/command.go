@@ -9,11 +9,12 @@ import (
 	"context"
 	"time"
 
+	"google.golang.org/grpc"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/stats"
-	"google.golang.org/grpc"
 )
 
 // routingServer is an implementation of RoutingService.

@@ -8,6 +8,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
+	"google.golang.org/grpc"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/commander"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/policy"
@@ -27,9 +31,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/inbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/outbound"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/testing/servers/tcp"
-	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
-	"google.golang.org/grpc"
 )
 
 func TestCommanderRemoveHandler(t *testing.T) {

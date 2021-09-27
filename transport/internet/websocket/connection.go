@@ -9,10 +9,11 @@ import (
 	"net"
 	"time"
 
+	"github.com/gorilla/websocket"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/errors"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
-	"github.com/gorilla/websocket"
 )
 
 var _ buf.Writer = (*connection)(nil)

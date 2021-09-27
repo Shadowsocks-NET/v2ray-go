@@ -8,10 +8,11 @@ package command
 import (
 	"context"
 
+	grpc "google.golang.org/grpc"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/log"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
-	grpc "google.golang.org/grpc"
 )
 
 type LoggerServer struct {

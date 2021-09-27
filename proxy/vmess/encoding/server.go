@@ -11,6 +11,8 @@ import (
 	"sync"
 	"time"
 
+	"golang.org/x/crypto/chacha20poly1305"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/bitmask"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
@@ -21,7 +23,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess"
 	vmessaead "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/aead"
-	"golang.org/x/crypto/chacha20poly1305"
 )
 
 type sessionID struct {

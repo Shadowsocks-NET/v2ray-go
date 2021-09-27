@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/gorilla/websocket"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
@@ -18,7 +20,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/extension"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet/tls"
-	"github.com/gorilla/websocket"
 )
 
 // Dial dials a WebSocket connection to the given destination.

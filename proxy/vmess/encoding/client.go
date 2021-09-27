@@ -11,6 +11,8 @@ import (
 	"hash/fnv"
 	"io"
 
+	"golang.org/x/crypto/chacha20poly1305"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/bitmask"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
@@ -20,7 +22,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess"
 	vmessaead "github.com/Shadowsocks-NET/v2ray-go/v4/proxy/vmess/aead"
-	"golang.org/x/crypto/chacha20poly1305"
 )
 
 // ClientSession stores connection session info for VMess client.

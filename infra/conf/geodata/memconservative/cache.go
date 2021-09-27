@@ -4,9 +4,10 @@ import (
 	"os"
 	"strings"
 
+	"google.golang.org/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/router"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform"
-	"google.golang.org/protobuf/proto"
 )
 
 type GeoIPCache map[string]*router.GeoIP

@@ -6,11 +6,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
+
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/app/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestDoHLocalNameServer(t *testing.T) {

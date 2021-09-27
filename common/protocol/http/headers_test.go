@@ -6,10 +6,11 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol/http"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestParseXForwardedFor(t *testing.T) {

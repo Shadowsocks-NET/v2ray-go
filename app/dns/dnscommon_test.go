@@ -8,12 +8,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
-	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 	"github.com/google/go-cmp/cmp"
 	"github.com/miekg/dns"
 	"golang.org/x/net/dns/dnsmessage"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
+	dns_feature "github.com/Shadowsocks-NET/v2ray-go/v4/features/dns"
 )
 
 func Test_parseResponse(t *testing.T) {

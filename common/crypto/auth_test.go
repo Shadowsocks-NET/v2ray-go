@@ -8,11 +8,12 @@ import (
 	"io"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/crypto"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestAuthenticationReaderWriter(t *testing.T) {

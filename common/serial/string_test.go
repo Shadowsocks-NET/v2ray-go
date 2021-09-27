@@ -4,8 +4,9 @@ import (
 	"errors"
 	"testing"
 
-	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/google/go-cmp/cmp"
+
+	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 )
 
 func TestToString(t *testing.T) {

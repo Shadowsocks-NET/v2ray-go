@@ -8,13 +8,14 @@ import (
 	"crypto/sha1"
 	"io"
 
+	"golang.org/x/crypto/chacha20poly1305"
+	"golang.org/x/crypto/hkdf"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/antireplay"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/crypto"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/protocol"
-	"golang.org/x/crypto/chacha20poly1305"
-	"golang.org/x/crypto/hkdf"
 )
 
 // MemoryAccount is an account type converted from Account.

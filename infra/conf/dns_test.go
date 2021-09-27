@@ -8,13 +8,14 @@ import (
 	"path/filepath"
 	"testing"
 
+	"google.golang.org/protobuf/runtime/protoiface"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dns"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/platform/filesystem"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf"
 	_ "github.com/Shadowsocks-NET/v2ray-go/v4/infra/conf/geodata/standard"
-	"google.golang.org/protobuf/runtime/protoiface"
 )
 
 func init() {

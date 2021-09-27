@@ -4,8 +4,9 @@ import (
 	"encoding/binary"
 	"unsafe"
 
-	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"golang.org/x/sys/windows"
+
+	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 )
 
 const (

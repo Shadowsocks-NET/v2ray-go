@@ -8,8 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
-	outbound "github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
 	gomock "github.com/golang/mock/gomock"
+
+	outbound "github.com/Shadowsocks-NET/v2ray-go/v4/features/outbound"
 )
 
 // OutboundManager is a mock of Manager interface.

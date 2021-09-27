@@ -5,9 +5,10 @@ import (
 	"crypto/rand"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestBufferClear(t *testing.T) {

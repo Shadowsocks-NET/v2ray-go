@@ -3,9 +3,10 @@ package conf
 import (
 	"encoding/json"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/proxy/blackhole"
-	"github.com/golang/protobuf/proto"
 )
 
 type NoneResponse struct{}

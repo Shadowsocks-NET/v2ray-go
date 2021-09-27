@@ -13,6 +13,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/golang/protobuf/proto"
+
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/dispatcher"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/app/proxyman"
@@ -22,7 +24,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/retry"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/serial"
-	"github.com/golang/protobuf/proto"
 )
 
 func xor(b []byte) []byte {

@@ -7,9 +7,10 @@ import (
 	"os"
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
+
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
 	. "github.com/Shadowsocks-NET/v2ray-go/v4/common/buf"
-	"github.com/google/go-cmp/cmp"
 )
 
 func TestMultiBufferRead(t *testing.T) {
