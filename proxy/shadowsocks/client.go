@@ -85,7 +85,7 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 		Address: destination.Address,
 		Port:    destination.Port,
 	}
-	if destination.Network == net.Network_TCP {
+	if network == net.Network_TCP {
 		request.Command = protocol.RequestCommandTCP
 	} else {
 		request.Command = protocol.RequestCommandUDP
@@ -100,7 +100,7 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 
 	sessionPolicy := c.policyManager.ForLevel(user.Level)
 	ctx, cancel := context.WithCancel(ctx)
-	timer := signal.CancelAfterInactivity(ctx, cancel, sessionPolicy.Timeouts.ConnectionIdle)
+	timer := signal.GetActivityTimer(ctx, cancel)
 
 	if request.Command == protocol.RequestCommandTCP {
 		requestDone := func() error {
@@ -142,6 +142,8 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 	}
 
 	if request.Command == protocol.RequestCommandUDP {
+		timer.SetTimeout(sessionPolicy.Timeouts.UDPIdle)
+
 		writer := &buf.SequentialWriter{Writer: &UDPWriter{
 			Writer:  conn,
 			Request: request,

@@ -120,7 +120,7 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 	}
 
 	ctx, cancel := context.WithCancel(ctx)
-	timer := signal.CancelAfterInactivity(ctx, cancel, p.Timeouts.ConnectionIdle)
+	timer := signal.GetActivityTimer(ctx, cancel)
 
 	var requestFunc func() error
 	var responseFunc func() error
@@ -134,6 +134,7 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 			return buf.Copy(buf.NewReader(conn), link.Writer, buf.UpdateActivity(timer))
 		}
 	} else if request.Command == protocol.RequestCommandUDP {
+		timer.SetTimeout(p.Timeouts.UDPIdle)
 		udpConn, err := dialer.Dial(ctx, udpRequest.Destination())
 		if err != nil {
 			return newError("failed to create UDP connection").Base(err)

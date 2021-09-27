@@ -6,7 +6,7 @@ import (
 
 type Policy struct {
 	Handshake         *uint32 `json:"handshake"`
-	ConnectionIdle    *uint32 `json:"connIdle"`
+	UDPTimeout        *uint32 `json:"udpTimeout"`
 	UplinkOnly        *uint32 `json:"uplinkOnly"`
 	DownlinkOnly      *uint32 `json:"downlinkOnly"`
 	StatsUserUplink   bool    `json:"statsUserUplink"`
@@ -19,8 +19,8 @@ func (t *Policy) Build() (*policy.Policy, error) {
 	if t.Handshake != nil {
 		config.Handshake = &policy.Second{Value: *t.Handshake}
 	}
-	if t.ConnectionIdle != nil {
-		config.ConnectionIdle = &policy.Second{Value: *t.ConnectionIdle}
+	if t.UDPTimeout != nil {
+		config.UdpIdle = &policy.Second{Value: *t.UDPTimeout}
 	}
 	if t.UplinkOnly != nil {
 		config.UplinkOnly = &policy.Second{Value: *t.UplinkOnly}

@@ -67,7 +67,7 @@ func TestSameDestinationDispatching(t *testing.T) {
 	var msgCount uint32
 	dispatcher := NewDispatcher(td, func(ctx context.Context, packet *udp.Packet) {
 		atomic.AddUint32(&msgCount, 1)
-	})
+	}, 300*time.Second)
 
 	dispatcher.Dispatch(ctx, dest, b)
 	for i := 0; i < 5; i++ {

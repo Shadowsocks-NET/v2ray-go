@@ -14,7 +14,7 @@ message Policy {
   // Timeout is a message for timeout settings in various stages, in seconds.
   message Timeout {
     Second handshake = 1;
-    Second connection_idle = 2;
+    Second udp_idle = 2;
     Second uplink_only = 3;
     Second downlink_only = 4;
   }

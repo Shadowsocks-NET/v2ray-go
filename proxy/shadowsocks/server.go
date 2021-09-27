@@ -70,6 +70,7 @@ func (s *Server) Process(ctx context.Context, network net.Network, conn internet
 }
 
 func (s *Server) handlerUDPPayload(ctx context.Context, conn internet.Connection, dispatcher routing.Dispatcher) error {
+	sessionPolicy := s.policyManager.ForLevel(s.user.Level)
 	udpServer := udp.NewDispatcher(dispatcher, func(ctx context.Context, packet *udp_proto.Packet) {
 		request := protocol.RequestHeaderFromContext(ctx)
 		if request == nil {
@@ -86,7 +87,7 @@ func (s *Server) handlerUDPPayload(ctx context.Context, conn internet.Connection
 		defer data.Release()
 
 		conn.Write(data.Bytes())
-	})
+	}, sessionPolicy.Timeouts.UDPIdle)
 
 	inbound := session.InboundFromContext(ctx)
 	if inbound == nil {
@@ -172,7 +173,7 @@ func (s *Server) handleConnection(ctx context.Context, conn internet.Connection,
 	newError("tunnelling request to ", dest).WriteToLog(session.ExportIDToError(ctx))
 
 	ctx, cancel := context.WithCancel(ctx)
-	timer := signal.CancelAfterInactivity(ctx, cancel, sessionPolicy.Timeouts.ConnectionIdle)
+	timer := signal.GetActivityTimer(ctx, cancel)
 
 	ctx = policy.ContextWithBufferPolicy(ctx, sessionPolicy.Buffer)
 	link, err := dispatcher.Dispatch(ctx, dest)

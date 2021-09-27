@@ -128,7 +128,10 @@ func (h *Handler) Process(ctx context.Context, link *transport.Link, dialer inte
 	sessionPolicy := h.policyManager.ForLevel(request.User.Level)
 
 	ctx, cancel := context.WithCancel(ctx)
-	timer := signal.CancelAfterInactivity(ctx, cancel, sessionPolicy.Timeouts.ConnectionIdle)
+	timer := signal.GetActivityTimer(ctx, cancel)
+	if target.Network == net.Network_UDP {
+		timer.SetTimeout(sessionPolicy.Timeouts.UDPIdle)
+	}
 
 	requestDone := func() error {
 		defer timer.SetTimeout(sessionPolicy.Timeouts.DownlinkOnly)

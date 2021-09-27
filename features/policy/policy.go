@@ -13,8 +13,8 @@ import (
 type Timeout struct {
 	// Timeout for handshake phase in a connection.
 	Handshake time.Duration
-	// Timeout for connection being idle, i.e., there is no egress or ingress traffic in this connection.
-	ConnectionIdle time.Duration
+	// Timeout for UDP connection being idle, i.e., there is no egress or ingress traffic in this connection.
+	UDPIdle time.Duration
 	// Timeout for an uplink only connection, i.e., the downlink of the connection has been closed.
 	UplinkOnly time.Duration
 	// Timeout for an downlink only connection, i.e., the uplink of the connection has been closed.
@@ -119,10 +119,10 @@ func SessionDefault() Session {
 		Timeouts: Timeout{
 			// Align Handshake timeout with nginx client_header_timeout
 			// So that this value will not indicate server identity
-			Handshake:      time.Second * 60,
-			ConnectionIdle: time.Second * 300,
-			UplinkOnly:     time.Second * 1,
-			DownlinkOnly:   time.Second * 1,
+			Handshake:    time.Second * 60,
+			UDPIdle:      time.Second * 300,
+			UplinkOnly:   time.Second * 1,
+			DownlinkOnly: time.Second * 1,
 		},
 		Stats: Stats{
 			UserUplink:   false,

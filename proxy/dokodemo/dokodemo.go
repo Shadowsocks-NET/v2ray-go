@@ -8,7 +8,6 @@ package dokodemo
 import (
 	"context"
 	"sync/atomic"
-	"time"
 
 	core "github.com/Shadowsocks-NET/v2ray-go/v4"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common"
@@ -66,12 +65,7 @@ func (d *Door) Network() []net.Network {
 }
 
 func (d *Door) policy() policy.Session {
-	config := d.config
-	p := d.policyManager.ForLevel(config.UserLevel)
-	if config.Timeout > 0 && config.UserLevel == 0 {
-		p.Timeouts.ConnectionIdle = time.Duration(config.Timeout) * time.Second
-	}
-	return p
+	return d.policyManager.ForLevel(d.config.UserLevel)
 }
 
 type hasHandshakeAddress interface {
@@ -120,7 +114,10 @@ func (d *Door) Process(ctx context.Context, network net.Network, conn internet.C
 
 	plcy := d.policy()
 	ctx, cancel := context.WithCancel(ctx)
-	timer := signal.CancelAfterInactivity(ctx, cancel, plcy.Timeouts.ConnectionIdle)
+	timer := signal.GetActivityTimer(ctx, cancel)
+	if network == net.Network_UDP {
+		timer.SetTimeout(plcy.Timeouts.UDPIdle)
+	}
 
 	ctx = policy.ContextWithBufferPolicy(ctx, plcy.Buffer)
 	link, err := dispatcher.Dispatch(ctx, dest)

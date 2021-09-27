@@ -33,7 +33,6 @@ type SocksServerConfig struct {
 	Accounts   []*SocksAccount    `json:"accounts"`
 	UDP        bool               `json:"udp"`
 	Host       *cfgcommon.Address `json:"ip"`
-	Timeout    uint32             `json:"timeout"`
 	UserLevel  uint32             `json:"userLevel"`
 }
 
@@ -61,7 +60,6 @@ func (v *SocksServerConfig) Build() (proto.Message, error) {
 		config.Address = v.Host.Build()
 	}
 
-	config.Timeout = v.Timeout
 	config.UserLevel = v.UserLevel
 	return config, nil
 }

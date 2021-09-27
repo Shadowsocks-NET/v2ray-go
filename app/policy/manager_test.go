@@ -31,8 +31,8 @@ func TestPolicy(t *testing.T) {
 		if p.Timeouts.Handshake != 2*time.Second {
 			t.Error("expect 2 sec timeout, but got ", p.Timeouts.Handshake)
 		}
-		if p.Timeouts.ConnectionIdle != pDefault.Timeouts.ConnectionIdle {
-			t.Error("expect ", pDefault.Timeouts.ConnectionIdle, " sec timeout, but got ", p.Timeouts.ConnectionIdle)
+		if p.Timeouts.UDPIdle != pDefault.Timeouts.UDPIdle {
+			t.Error("expect ", pDefault.Timeouts.UDPIdle, " sec timeout, but got ", p.Timeouts.UDPIdle)
 		}
 	}
 

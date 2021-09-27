@@ -18,7 +18,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/session"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/signal"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/task"
-	"github.com/Shadowsocks-NET/v2ray-go/v4/features"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/policy"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/features/routing"
 	"github.com/Shadowsocks-NET/v2ray-go/v4/transport/internet"
@@ -42,15 +41,7 @@ func NewServer(ctx context.Context, config *ServerConfig) (*Server, error) {
 }
 
 func (s *Server) policy() policy.Session {
-	config := s.config
-	p := s.policyManager.ForLevel(config.UserLevel)
-	if config.Timeout > 0 {
-		features.PrintDeprecatedFeatureWarning("Socks timeout")
-	}
-	if config.Timeout > 0 && config.UserLevel == 0 {
-		p.Timeouts.ConnectionIdle = time.Duration(config.Timeout) * time.Second
-	}
-	return p
+	return s.policyManager.ForLevel(s.config.UserLevel)
 }
 
 // Network implements proxy.Inbound.
@@ -149,7 +140,7 @@ func (*Server) handleUDP(c io.Reader) error {
 
 func (s *Server) transport(ctx context.Context, reader io.Reader, writer io.Writer, dest net.Destination, dispatcher routing.Dispatcher) error {
 	ctx, cancel := context.WithCancel(ctx)
-	timer := signal.CancelAfterInactivity(ctx, cancel, s.policy().Timeouts.ConnectionIdle)
+	timer := signal.GetActivityTimer(ctx, cancel)
 
 	plcy := s.policy()
 	ctx = policy.ContextWithBufferPolicy(ctx, plcy.Buffer)
@@ -189,6 +180,7 @@ func (s *Server) transport(ctx context.Context, reader io.Reader, writer io.Writ
 }
 
 func (s *Server) handleUDPPayload(ctx context.Context, conn internet.Connection, dispatcher routing.Dispatcher) error {
+	plcy := s.policy()
 	udpServer := udp.NewDispatcher(dispatcher, func(ctx context.Context, packet *udp_proto.Packet) {
 		payload := packet.Payload
 		newError("writing back UDP response with ", payload.Len(), " bytes").AtDebug().WriteToLog(session.ExportIDToError(ctx))
@@ -206,7 +198,7 @@ func (s *Server) handleUDPPayload(ctx context.Context, conn internet.Connection,
 		}
 
 		conn.Write(udpMessage.Bytes())
-	})
+	}, plcy.Timeouts.UDPIdle)
 
 	if inbound := session.InboundFromContext(ctx); inbound != nil && inbound.Source.IsValid() {
 		newError("client UDP connection from ", inbound.Source).WriteToLog(session.ExportIDToError(ctx))

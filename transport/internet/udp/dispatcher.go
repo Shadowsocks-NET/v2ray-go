@@ -30,13 +30,15 @@ type Dispatcher struct {
 	conns      map[net.Destination]*connEntry
 	dispatcher routing.Dispatcher
 	callback   ResponseCallback
+	timeout    time.Duration
 }
 
-func NewDispatcher(dispatcher routing.Dispatcher, callback ResponseCallback) *Dispatcher {
+func NewDispatcher(dispatcher routing.Dispatcher, callback ResponseCallback, timeout time.Duration) *Dispatcher {
 	return &Dispatcher{
 		conns:      make(map[net.Destination]*connEntry),
 		dispatcher: dispatcher,
 		callback:   callback,
+		timeout:    timeout,
 	}
 }
 
@@ -65,7 +67,8 @@ func (v *Dispatcher) getInboundRay(ctx context.Context, dest net.Destination) *c
 		cancel()
 		v.RemoveRay(dest)
 	}
-	timer := signal.CancelAfterInactivity(ctx, removeRay, time.Second*4)
+	timer := signal.GetActivityTimer(ctx, removeRay)
+	timer.SetTimeout(v.timeout)
 	link, _ := v.dispatcher.Dispatch(ctx, dest)
 	entry := &connEntry{
 		link:   link,
@@ -132,7 +135,7 @@ func DialDispatcher(ctx context.Context, dispatcher routing.Dispatcher) (net.Pac
 		done:  done.New(),
 	}
 
-	d := NewDispatcher(dispatcher, c.callback)
+	d := NewDispatcher(dispatcher, c.callback, 300*time.Second)
 	c.dispatcher = d
 	return c, nil
 }

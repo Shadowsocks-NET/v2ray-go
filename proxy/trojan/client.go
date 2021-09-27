@@ -86,7 +86,10 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 
 	sessionPolicy := c.policyManager.ForLevel(user.Level)
 	ctx, cancel := context.WithCancel(ctx)
-	timer := signal.CancelAfterInactivity(ctx, cancel, sessionPolicy.Timeouts.ConnectionIdle)
+	timer := signal.GetActivityTimer(ctx, cancel)
+	if network == net.Network_UDP {
+		timer.SetTimeout(sessionPolicy.Timeouts.UDPIdle)
+	}
 
 	postRequest := func() error {
 		defer timer.SetTimeout(sessionPolicy.Timeouts.DownlinkOnly)
@@ -95,7 +98,7 @@ func (c *Client) Process(ctx context.Context, link *transport.Link, dialer inter
 		bufferWriter := buf.NewBufferedWriter(buf.NewWriter(conn))
 		connWriter := &ConnWriter{Writer: bufferWriter, Target: destination, Account: account}
 
-		if destination.Network == net.Network_UDP {
+		if network == net.Network_UDP {
 			bodyWriter = &PacketWriter{Writer: connWriter, Target: destination}
 		} else {
 			bodyWriter = connWriter
