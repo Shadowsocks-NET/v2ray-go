@@ -59,10 +59,12 @@ func toProtocolList(s []string) ([]proxyman.KnownProtocols, error) {
 }
 
 type SniffingConfig struct {
-	Enabled      bool                  `json:"enabled"`
-	DestOverride *cfgcommon.StringList `json:"destOverride"`
-	MetadataOnly bool                  `json:"metadataOnly"`
-	RouteOnly    bool                  `json:"routeOnly"`
+	Enabled                bool                  `json:"enabled"`
+	DestOverride           *cfgcommon.StringList `json:"destOverride"`
+	MetadataOnly           bool                  `json:"metadataOnly"`
+	RouteOnly              bool                  `json:"routeOnly"`
+	SkipDomainDestinations bool                  `json:"skipDomainDestinations"`
+	SkippedDomains         *cfgcommon.StringList `json:"skippedDomains"`
 }
 
 // Build implements Buildable.
@@ -86,10 +88,12 @@ func (c *SniffingConfig) Build() (*proxyman.SniffingConfig, error) {
 	}
 
 	return &proxyman.SniffingConfig{
-		Enabled:             c.Enabled,
-		DestinationOverride: p,
-		MetadataOnly:        c.MetadataOnly,
-		RouteOnly:           c.RouteOnly,
+		Enabled:                c.Enabled,
+		DestinationOverride:    p,
+		MetadataOnly:           c.MetadataOnly,
+		RouteOnly:              c.RouteOnly,
+		SkipDomainDestinations: c.SkipDomainDestinations,
+		SkippedDomains:         *c.SkippedDomains,
 	}, nil
 }
 

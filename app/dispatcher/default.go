@@ -176,12 +176,18 @@ func (d *DefaultDispatcher) getLink(ctx context.Context) (*transport.Link, *tran
 	return inboundLink, outboundLink
 }
 
-func shouldOverride(result SniffResult, domainOverride []string) bool {
+func shouldOverride(result SniffResult, overriddenProtocols []string, skippedDomains []string) bool {
+	for i := range skippedDomains {
+		if result.Domain() == skippedDomains[i] {
+			return false
+		}
+	}
+
 	protocolString := result.Protocol()
 	if resComp, ok := result.(SnifferResultComposite); ok {
 		protocolString = resComp.ProtocolForDomainResult()
 	}
-	for _, p := range domainOverride {
+	for _, p := range overriddenProtocols {
 		if strings.HasPrefix(protocolString, p) {
 			return true
 		}
@@ -212,14 +218,14 @@ func (d *DefaultDispatcher) Dispatch(ctx context.Context, destination net.Destin
 	}
 	sniffingRequest := content.SniffingRequest
 	switch {
-	case !sniffingRequest.Enabled:
+	case !sniffingRequest.Enabled || sniffingRequest.SkipDomainDestinations && destination.Address.Family().IsDomain():
 		go d.routedDispatch(ctx, outbound, destination)
 	case destination.Network != net.Network_TCP:
 		// Only metadata sniff will be used for non tcp connection
 		result, err := sniffer(ctx, nil, true)
 		if err == nil {
 			content.Protocol = result.Protocol()
-			if shouldOverride(result, sniffingRequest.OverrideDestinationForProtocol) {
+			if shouldOverride(result, sniffingRequest.OverrideDestinationForProtocol, sniffingRequest.SkippedDomains) {
 				domain := result.Domain()
 				newError("sniffed domain: ", domain).WriteToLog(session.ExportIDToError(ctx))
 				destination.Address = net.ParseAddress(domain)
@@ -241,7 +247,7 @@ func (d *DefaultDispatcher) Dispatch(ctx context.Context, destination net.Destin
 			if err == nil {
 				content.Protocol = result.Protocol()
 			}
-			if err == nil && shouldOverride(result, sniffingRequest.OverrideDestinationForProtocol) {
+			if err == nil && shouldOverride(result, sniffingRequest.OverrideDestinationForProtocol, sniffingRequest.SkippedDomains) {
 				domain := result.Domain()
 				newError("sniffed domain: ", domain).WriteToLog(session.ExportIDToError(ctx))
 				destination.Address = net.ParseAddress(domain)

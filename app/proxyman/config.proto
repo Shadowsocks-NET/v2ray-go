@@ -62,6 +62,12 @@ message SniffingConfig {
   bool metadata_only = 3;
 
   bool route_only = 4;
+
+  // Don't initiate sniffer on domain destinations.
+  bool skip_domain_destinations = 5;
+
+  // Discard the sniffed result if the result matches any of these domains.
+  repeated string skipped_domains = 6;
 }
 
 message ReceiverConfig {
