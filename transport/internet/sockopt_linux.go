@@ -6,13 +6,6 @@ import (
 	"github.com/Shadowsocks-NET/v2ray-go/v4/common/net"
 )
 
-const (
-	// For incoming connections.
-	TCP_FASTOPEN = 23 // nolint: golint,stylecheck
-	// For out-going connections.
-	TCP_FASTOPEN_CONNECT = 30 // nolint: golint,stylecheck
-)
-
 func applyOutboundSocketOptions(network string, address string, fd uintptr, config *SocketConfig, dest net.Destination) error {
 	if config.Mark != 0 {
 		if err := unix.SetsockoptInt(int(fd), unix.SOL_SOCKET, unix.SO_MARK, int(config.Mark)); err != nil {
@@ -23,11 +16,11 @@ func applyOutboundSocketOptions(network string, address string, fd uintptr, conf
 	if isTCPSocket(network) {
 		switch config.Tfo {
 		case SocketConfig_Enable:
-			if err := unix.SetsockoptInt(int(fd), unix.SOL_TCP, TCP_FASTOPEN_CONNECT, 1); err != nil {
+			if err := unix.SetsockoptInt(int(fd), unix.IPPROTO_TCP, unix.TCP_FASTOPEN_CONNECT, 1); err != nil {
 				return newError("failed to set TCP_FASTOPEN_CONNECT=1").Base(err)
 			}
 		case SocketConfig_Disable:
-			if err := unix.SetsockoptInt(int(fd), unix.SOL_TCP, TCP_FASTOPEN_CONNECT, 0); err != nil {
+			if err := unix.SetsockoptInt(int(fd), unix.IPPROTO_TCP, unix.TCP_FASTOPEN_CONNECT, 0); err != nil {
 				return newError("failed to set TCP_FASTOPEN_CONNECT=0").Base(err)
 			}
 		}
@@ -64,11 +57,11 @@ func applyInboundSocketOptions(network string, fd uintptr, config *SocketConfig)
 	if isTCPSocket(network) {
 		switch config.Tfo {
 		case SocketConfig_Enable:
-			if err := unix.SetsockoptInt(int(fd), unix.SOL_TCP, TCP_FASTOPEN, int(config.TfoQueueLength)); err != nil {
+			if err := unix.SetsockoptInt(int(fd), unix.IPPROTO_TCP, unix.TCP_FASTOPEN, int(config.TfoQueueLength)); err != nil {
 				return newError("failed to set TCP_FASTOPEN=", config.TfoQueueLength).Base(err)
 			}
 		case SocketConfig_Disable:
-			if err := unix.SetsockoptInt(int(fd), unix.SOL_TCP, TCP_FASTOPEN, 0); err != nil {
+			if err := unix.SetsockoptInt(int(fd), unix.IPPROTO_TCP, unix.TCP_FASTOPEN, 0); err != nil {
 				return newError("failed to set TCP_FASTOPEN=0").Base(err)
 			}
 		}
