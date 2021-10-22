@@ -64,7 +64,7 @@ type SniffingConfig struct {
 	MetadataOnly           bool                  `json:"metadataOnly"`
 	RouteOnly              bool                  `json:"routeOnly"`
 	SkipDomainDestinations bool                  `json:"skipDomainDestinations"`
-	SkippedDomains         *cfgcommon.StringList `json:"skippedDomains"`
+	SkippedDomains         []string              `json:"skippedDomains"`
 }
 
 // Build implements Buildable.
@@ -93,7 +93,7 @@ func (c *SniffingConfig) Build() (*proxyman.SniffingConfig, error) {
 		MetadataOnly:           c.MetadataOnly,
 		RouteOnly:              c.RouteOnly,
 		SkipDomainDestinations: c.SkipDomainDestinations,
-		SkippedDomains:         *c.SkippedDomains,
+		SkippedDomains:         c.SkippedDomains,
 	}, nil
 }
 
