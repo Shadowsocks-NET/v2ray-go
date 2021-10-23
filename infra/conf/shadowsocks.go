@@ -27,12 +27,12 @@ func cipherFromString(c string) shadowsocks.CipherType {
 }
 
 type ShadowsocksServerConfig struct {
-	Cipher         string                 `json:"method"`
-	Password       string                 `json:"password"`
-	Level          byte                   `json:"level"`
-	Email          string                 `json:"email"`
-	NetworkList    *cfgcommon.NetworkList `json:"network"`
-	DisableIvCheck bool                   `json:"ivCheck"`
+	Cipher      string                 `json:"method"`
+	Password    string                 `json:"password"`
+	Level       byte                   `json:"level"`
+	Email       string                 `json:"email"`
+	NetworkList *cfgcommon.NetworkList `json:"network"`
+	IvCheck     bool                   `json:"ivCheck"`
 }
 
 func (v *ShadowsocksServerConfig) Build() (proto.Message, error) {
@@ -43,8 +43,8 @@ func (v *ShadowsocksServerConfig) Build() (proto.Message, error) {
 		return nil, newError("Shadowsocks password is not specified.")
 	}
 	account := &shadowsocks.Account{
-		Password:       v.Password,
-		DisableIvCheck: v.DisableIvCheck,
+		Password: v.Password,
+		IvCheck:  v.IvCheck,
 	}
 	account.CipherType = cipherFromString(v.Cipher)
 	if account.CipherType == shadowsocks.CipherType_UNKNOWN {
@@ -61,14 +61,14 @@ func (v *ShadowsocksServerConfig) Build() (proto.Message, error) {
 }
 
 type ShadowsocksServerTarget struct {
-	Address        *cfgcommon.Address `json:"address"`
-	Port           uint16             `json:"port"`
-	Cipher         string             `json:"method"`
-	Password       string             `json:"password"`
-	Email          string             `json:"email"`
-	Ota            bool               `json:"ota"`
-	Level          byte               `json:"level"`
-	DisableIvCheck bool               `json:"ivCheck"`
+	Address  *cfgcommon.Address `json:"address"`
+	Port     uint16             `json:"port"`
+	Cipher   string             `json:"method"`
+	Password string             `json:"password"`
+	Email    string             `json:"email"`
+	Ota      bool               `json:"ota"`
+	Level    byte               `json:"level"`
+	IvCheck  bool               `json:"ivCheck"`
 }
 
 type ShadowsocksClientConfig struct {
@@ -101,7 +101,7 @@ func (v *ShadowsocksClientConfig) Build() (proto.Message, error) {
 			return nil, newError("unknown cipher method: ", server.Cipher)
 		}
 
-		account.DisableIvCheck = server.DisableIvCheck
+		account.IvCheck = server.IvCheck
 
 		ss := &protocol.ServerEndpoint{
 			Address: server.Address.Build(),

@@ -95,7 +95,7 @@ func (a *Account) AsAccount() (protocol.Account, error) {
 		Cipher: Cipher,
 		Key:    passwordToCipherKey([]byte(a.Password), Cipher.KeySize()),
 		replayFilter: func() antireplay.GeneralizedReplayFilter {
-			if !a.DisableIvCheck {
+			if a.IvCheck {
 				return antireplay.NewBloomRing()
 			}
 			return nil
