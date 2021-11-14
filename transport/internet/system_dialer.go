@@ -333,17 +333,9 @@ func (d *DefaultSystemDialer) fallbackDelay() time.Duration {
 }
 
 type udpConnWrapper struct {
-	conn *net.UDPConn
-	oob  []byte
-	da   *net.UDPAddr
-}
-
-func (c *udpConnWrapper) Close() error {
-	return c.conn.Close()
-}
-
-func (c *udpConnWrapper) LocalAddr() net.Addr {
-	return c.conn.LocalAddr()
+	*net.UDPConn
+	oob []byte
+	da  *net.UDPAddr
 }
 
 func (c *udpConnWrapper) RemoteAddr() net.Addr {
@@ -351,24 +343,8 @@ func (c *udpConnWrapper) RemoteAddr() net.Addr {
 }
 
 func (c *udpConnWrapper) Write(p []byte) (int, error) {
-	n, _, err := c.conn.WriteMsgUDP(p, c.oob, c.da)
+	n, _, err := c.WriteMsgUDP(p, c.oob, c.da)
 	return n, err
-}
-
-func (c *udpConnWrapper) Read(p []byte) (int, error) {
-	return c.conn.Read(p)
-}
-
-func (c *udpConnWrapper) SetDeadline(t time.Time) error {
-	return c.conn.SetDeadline(t)
-}
-
-func (c *udpConnWrapper) SetReadDeadline(t time.Time) error {
-	return c.conn.SetReadDeadline(t)
-}
-
-func (c *udpConnWrapper) SetWriteDeadline(t time.Time) error {
-	return c.conn.SetWriteDeadline(t)
 }
 
 type SystemDialerAdapter interface {

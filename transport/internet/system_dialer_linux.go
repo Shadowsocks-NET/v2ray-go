@@ -11,8 +11,8 @@ import (
 func newUDPConnWrapper(conn *net.UDPConn, destAddr *net.UDPAddr, addressFamily net.AddressFamily, sockopt *SocketConfig) (*udpConnWrapper, error) {
 	if !sockopt.HasBindInterface() || !sockopt.LinuxBindInterfaceUdpUsePktinfo {
 		return &udpConnWrapper{
-			conn: conn,
-			da:   destAddr,
+			UDPConn: conn,
+			da:      destAddr,
 		}, nil
 	}
 
@@ -52,9 +52,9 @@ func newUDPConnWrapper(conn *net.UDPConn, destAddr *net.UDPAddr, addressFamily n
 	}
 
 	return &udpConnWrapper{
-		conn: conn,
-		oob:  b,
-		da:   destAddr,
+		UDPConn: conn,
+		oob:     b,
+		da:      destAddr,
 	}, nil
 }
 
