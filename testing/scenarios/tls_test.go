@@ -122,7 +122,7 @@ func TestSimpleTLSConnection(t *testing.T) {
 	common.Must(err)
 	defer CloseAllServers(servers)
 
-	if err := testTCPConn(clientPort, 1024, time.Second*2)(); err != nil {
+	if err := testTCPConn(clientPort, 1024, time.Second*20)(); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -242,7 +242,7 @@ func TestAutoIssuingCertificate(t *testing.T) {
 	defer CloseAllServers(servers)
 
 	for i := 0; i < 10; i++ {
-		if err := testTCPConn(clientPort, 1024, time.Second*2)(); err != nil {
+		if err := testTCPConn(clientPort, 1024, time.Second*20)(); err != nil {
 			t.Error(err)
 		}
 	}
@@ -343,7 +343,7 @@ func TestTLSOverKCP(t *testing.T) {
 	common.Must(err)
 	defer CloseAllServers(servers)
 
-	if err := testTCPConn(clientPort, 1024, time.Second*2)(); err != nil {
+	if err := testTCPConn(clientPort, 1024, time.Second*20)(); err != nil {
 		t.Error(err)
 	}
 }
@@ -676,7 +676,7 @@ func TestSimpleTLSConnectionPinned(t *testing.T) {
 	common.Must(err)
 	defer CloseAllServers(servers)
 
-	if err := testTCPConn(clientPort, 1024, time.Second*2)(); err != nil {
+	if err := testTCPConn(clientPort, 1024, time.Second*20)(); err != nil {
 		t.Fatal(err)
 	}
 }
