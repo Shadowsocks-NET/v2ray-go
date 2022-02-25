@@ -28,7 +28,7 @@ jobs:
           pacman -Syu --needed --noconfirm go protobuf
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2.5.2
+        uses: golangci/golangci-lint-action@v3
         with:
           version: latest
           args: --config=.github/linters/.golangci.yml
