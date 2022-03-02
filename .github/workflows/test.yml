@@ -32,7 +32,7 @@ jobs:
         run: |
           pacman -Syu --needed --noconfirm go protobuf git
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Check Go modules
         run: |
