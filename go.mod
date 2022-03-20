@@ -1,6 +1,6 @@
 module github.com/Shadowsocks-NET/v2ray-go/v4
 
-go 1.17
+go 1.18
 
 require (
 	github.com/golang/mock v1.6.0
@@ -20,7 +20,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
 	golang.org/x/net v0.0.0-20210903162142-ad29c8ab022f
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210903071746-97244b99971b
+	golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8
 	google.golang.org/grpc v1.45.0
 	google.golang.org/protobuf v1.27.1
 	h12.io/socks v1.0.3
