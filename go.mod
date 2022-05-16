@@ -21,7 +21,7 @@ require (
 	golang.org/x/net v0.0.0-20210903162142-ad29c8ab022f
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8
-	google.golang.org/grpc v1.45.0
+	google.golang.org/grpc v1.46.2
 	google.golang.org/protobuf v1.28.0
 	h12.io/socks v1.0.3
 	inet.af/netaddr v0.0.0-20211027220019-c74959edd3b6
