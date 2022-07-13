@@ -1,3 +1,5 @@
+> **Warning** This project is no longer being maintained. Use https://github.com/database64128/shadowsocks-go instead.
+
 # v2ray-go
 
 An opinionated fork of [v2fly/v2ray-core](https://github.com/v2fly/v2ray-core).
